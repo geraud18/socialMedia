@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_width_input">350dp</dimen>
+    <dimen name="default_width_short_button">170dp</dimen>
+    <dimen name="default_height_input">40dp</dimen>
+</resources>

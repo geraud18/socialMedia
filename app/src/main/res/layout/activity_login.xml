@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".auth.LoginActivity">
+
+    
+    <TextView
+        android:id="@+id/logo_app"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="100dp"
+        android:textColor="@color/figma_first_color"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/TitleAppStyle"/>
+
+
+    <TextView
+        android:id="@+id/logo_app_sub_title"
+        style="@style/TitleAppStyle"
+        android:layout_marginTop="-30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_sub_name"
+        android:textColor="@color/figma_first_color"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_app"/>
+
+    <TextView
+        android:id="@+id/login_page_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:visibility="gone"
+        android:textColor="@color/figma_color_error"
+        android:text="@string/register_password_error"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_app" />
+
+
+    <EditText
+        android:id="@+id/login_email"
+        android:layout_width="@dimen/default_width_input"
+        android:layout_height="@dimen/default_height_input"
+        android:layout_marginTop="65dp"
+        android:background="@drawable/bg_rounded_input"
+        android:hint="@string/login_email"
+        android:textSize="15dp"
+        android:paddingLeft="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_app" />
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/login_password_layout"
+        android:layout_width="@dimen/default_width_input"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_email"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="12dp"
+            android:hint="@string/login_password"
+            android:inputType="textPassword"
+            android:textSize="15dp"
+            android:background="@drawable/bg_rounded_input"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/login_forget_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/figma_first_color"
+        android:text="@string/login_forget_password"
+        app:layout_constraintEnd_toEndOf="@+id/login_password_layout"
+        app:layout_constraintTop_toBottomOf="@+id/login_password_layout" />
+
+    <Button
+        android:id="@+id/login_connexion_button"
+        android:layout_width="@dimen/default_width_input"
+        android:layout_height="@dimen/default_height_input"
+        android:textSize="20dp"
+        android:background="@drawable/bg_rounded"
+        android:textAllCaps="false"
+        android:layout_marginTop="30dp"
+        android:text="@string/login_connexion_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_forget_password" />
+
+    <TextView
+        android:id="@+id/login_connecteur_logique"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/login_connecteur_logique"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_connexion_button" />
+
+
+    <TextView
+        android:id="@+id/login_connexion_google_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_connexion_google_link"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/figma_color_google_connection"
+        app:layout_constraintTop_toBottomOf="@+id/login_connecteur_logique" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <TextView
+            android:id="@+id/login_question_compte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_question_compte" />
+
+
+        <TextView
+            android:id="@+id/login_register_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:textColor="@color/figma_first_color"
+            android:text="@string/login_register_link" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

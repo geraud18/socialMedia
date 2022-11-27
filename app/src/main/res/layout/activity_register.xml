@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".auth.RegisterActivity">
+
+
+    <TextView
+        android:id="@+id/register_logo_app"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="100dp"
+        android:textColor="@color/figma_first_color"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/TitleAppStyle"/>
+
+
+    <TextView
+        android:id="@+id/register_logo_app_sub_title"
+        style="@style/TitleAppStyle"
+        android:layout_marginTop="-30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_sub_name"
+        android:textColor="@color/figma_first_color"
+        android:layout_marginBottom="80dp"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_logo_app"/>
+
+
+
+    <EditText
+        android:id="@+id/register_email"
+        android:layout_width="@dimen/default_width_input"
+        android:layout_height="@dimen/default_height_input"
+        android:background="@drawable/bg_rounded_input"
+        android:hint="@string/register_email"
+        android:layout_marginTop="65dp"
+        android:textSize="20dp"
+        android:paddingLeft="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_logo_app_sub_title"
+        style="@style/DefaultTextStyle"/>
+
+
+    <TextView
+        android:id="@+id/register_email_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textColor="@color/figma_color_error"
+        android:text="@string/register_email_error"
+        app:layout_constraintStart_toStartOf="@+id/register_email"
+        app:layout_constraintTop_toBottomOf="@+id/register_email"
+        style="@style/DefaultTextStyle"/>
+
+
+    <EditText
+        android:id="@+id/register_username"
+        android:layout_width="@dimen/default_width_input"
+        android:layout_height="@dimen/default_height_input"
+        android:background="@drawable/bg_rounded_input"
+        android:hint="@string/register_username"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="12dp"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_email_error"
+        style="@style/DefaultTextStyle"/>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/register_password_layout"
+        android:layout_width="@dimen/default_width_input"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_username"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/register_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="12dp"
+            android:hint="@string/register_password"
+            android:inputType="textPassword"
+            android:textSize="20dp"
+            android:background="@drawable/bg_rounded_input"
+            style="@style/DefaultTextStyle"/>
+
+
+        <TextView
+            android:id="@+id/register_password_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:textColor="@color/figma_color_error"
+            android:text="@string/register_password_error"
+            app:layout_constraintStart_toStartOf="@+id/register_password"
+            app:layout_constraintTop_toBottomOf="@+id/register_password"
+            style="@style/DefaultTextStyle"/>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/register_confirm_password_layout"
+        android:layout_width="@dimen/default_width_input"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_password_layout" app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/register_confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="12dp"
+            android:hint="@string/register_confirm_password"
+            android:inputType="textPassword"
+            android:textSize="20dp"
+            android:background="@drawable/bg_rounded_input"
+            />
+
+
+        <TextView
+            android:id="@+id/register_confirm_password_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:textColor="@color/figma_color_error"
+            android:text="@string/register_confirm_password_error"
+            app:layout_constraintStart_toStartOf="@+id/register_confirm_password"
+            app:layout_constraintTop_toBottomOf="@+id/register_confirm_password"
+            style="@style/DefaultTextStyle"/>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/register_submit_button"
+        android:layout_width="@dimen/default_width_short_button"
+        android:layout_height="@dimen/default_height_input"
+        android:textSize="20dp"
+        android:background="@drawable/bg_rounded"
+        android:textAllCaps="false"
+        android:layout_marginTop="30dp"
+        android:text="@string/register_submit_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_confirm_password_layout"
+        style="@style/DefaultTextStyle"/>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <TextView
+            android:id="@+id/register_question_compte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/register_question_compte"
+            style="@style/DefaultTextStyle"/>
+
+
+        <TextView
+            android:id="@+id/register_login_link"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="6dp"
+            android:text="@string/register_login_link"
+            android:textColor="@color/figma_first_color"
+            style="@style/DefaultTextStyle"/>
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

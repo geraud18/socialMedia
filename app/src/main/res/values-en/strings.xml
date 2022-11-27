@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Flow</string>
+    <string name="app_sub_name">Communiquez ensemble</string>
+
+    <!--Login page -->
+
+    <string name="login_email">Email</string>
+    <string name="login_password">Mot de passe</string>
+    <string name="login_forget_password">Mot de passe oublie ?</string>
+    <string name="login_connexion_button">Connexion</string>
+    <string name="login_connexion_google_link"><u>Se connecter avec compte Google</u></string>
+    <string name="login_connecteur_logique">Ou</string>
+    <string name="login_question_compte">Vous n\'avez pas encore de compte ?</string>
+    <string name="login_register_link">Inscrivez-vous</string>
+
+    <!-- Register page -->
+
+    <string name="register_email">@string/login_email</string>
+    <string name="register_password">@string/login_password</string>
+    <string name="register_username">Nom d\'utilisateur</string>
+    <string name="register_confirm_password">Confirmer mot de passe</string>
+    <string name="register_question_compte">Vous avez deja un compte ?</string>
+    <string name="register_login_link">Se connecter</string>
+    <string name="register_submit_button">Créer le compte</string>
+    <string name="register_email_error">Votre email n\'est pas valide</string>
+    <string name="register_password_error">Votre mot de passe n\'est pas valide</string>
+    <string name="register_confirm_password_error">@string/register_password_error</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--Account page -->
+
+    <string name="account_username">Name Prenom</string>
+    <string name="account_num_post">133</string>
+    <string name="account_num_friend">255</string>
+    <string name="account_num_post_label">Publish</string>
+    <string name="account_num_friend_label">Friends</string>
+    <string name="account_btn_modifier_profil">Update profile</string>
+    <string name="account_post_label">publish</string>
+    <string name="account_statut_label">Statut</string>
+
+
+    <!--Edit account page-->
+
+    <string-array name="edit_account_statut">
+        <item>Select</item>
+        <item>Mr</item>
+        <item>Mme</item>
+    </string-array>
+
+    <string name="edit_account_name">Name</string>
+    <string name="edit_account_statut_label">@string/account_statut_label</string>
+    <string name="edit_account_firstname">Firsname</string>
+    <string name="edit_account_birthday">Birthday</string>
+    <string name="edit_account_bio_information">Information bio</string>
+    <string name="edit_account_link_linkedin">Lien (exemple://linkedin.fr)</string>
+    <string name="edit_account_btn_update">Update</string>
+
+
+</resources>

@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/homme_activity"
     tools:context=".pages.HomeActivity">
 
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:paddingLeft="12dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/border_bottom_top_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,9 +24,10 @@
             android:textAlignment="center"
             android:text="@string/app_name"
             android:textColor="@color/figma_first_color"
-            android:textSize="40dp" />
+            android:textSize="35dp" />
 
-    </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPageNavigation"

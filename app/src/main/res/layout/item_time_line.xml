@@ -1,8 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:background="@drawable/border_bottom_time_line"
+    app:cardBackgroundColor="@color/figma_color_publication"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/container_image_profile_time_line"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/time_line_user_image"
+                android:layout_width="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_account"
+                android:transitionName="small_image" />
+
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:id="@+id/time_line_separation"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="7dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/container_image_profile_time_line"
+            app:layout_constraintTop_toTopOf="@+id/container_image_profile_time_line"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/time_line_username"
+            style="@style/DefaultTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time_line_username"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:layout_marginLeft="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/time_line_separation"
+            app:layout_constraintStart_toEndOf="@+id/container_image_profile_time_line"/>
+
+        <ImageView
+            android:id="@+id/time_line_more_option"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/custummore"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:textColor="@color/black"
+            android:layout_marginRight="10dp"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/time_line_separation"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/container_num_post_and_friend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/time_line_username"
+            app:layout_constraintTop_toBottomOf="@+id/time_line_separation">
+
+            <TextView
+                style="@style/DefaultTextStyle"
+                android:id="@+id/time_line_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="35dp"
+                android:text="@string/account_num_post"
+                android:textSize="10dp"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/time_line_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="600dp"
+            android:adjustViewBounds="true"
+            android:layout_marginTop="10dp"
+            android:visibility="visible"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toBottomOf="@+id/container_image_profile_time_line"/>
 
 
+        <ImageView
+            android:id="@+id/time_line_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:src="@drawable/custumfavoriteplus"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/time_line_separate2"
+            app:layout_constraintTop_toTopOf="@+id/time_line_separate2"/>
+
+        <TextView
+            android:id="@+id/time_line_favorite_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/account_num_post"
+            android:textColor="@color/figma_color_nav_border"
+            style="@style/DefaultTextStyle"
+            android:layout_marginLeft="2dp"
+            android:textSize="12dp"
+            app:layout_constraintStart_toEndOf="@+id/time_line_favorite"
+            app:layout_constraintBottom_toBottomOf="@+id/time_line_separate2"
+            app:layout_constraintTop_toTopOf="@+id/time_line_separate2"/>
+
+        <ImageView
+            android:id="@+id/time_line_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:src="@drawable/custumchat"
+            android:layout_marginLeft="2dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/time_line_favorite_number"
+            app:layout_constraintBottom_toBottomOf="@+id/time_line_separate2"
+            app:layout_constraintTop_toTopOf="@+id/time_line_separate2" />
+
+        <TextView
+            android:id="@+id/time_line_comment_number"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/account_num_post"
+            android:textColor="@color/figma_color_nav_border"
+            style="@style/DefaultTextStyle"
+            android:textSize="12dp"
+            android:layout_marginLeft="2dp"
+            app:layout_constraintStart_toEndOf="@+id/time_line_comment"
+            app:layout_constraintBottom_toBottomOf="@+id/time_line_separate2"
+            app:layout_constraintTop_toTopOf="@+id/time_line_separate2"/>
+
+        <View
+            android:id="@+id/time_line_separate2"
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="1dp"
+            app:layout_constraintTop_toBottomOf="@+id/time_line_data"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/time_line_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/time_line_title"
+            android:textSize="20dp"
+            android:justificationMode="inter_word"
+            android:textColor="@color/black"
+            style="@style/DefaultTextStyle"
+            app:layout_constraintTop_toBottomOf="@+id/time_line_separate2"/>
+
+        <TextView
+            android:id="@+id/time_line_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="15dp"
+            android:text="@string/time_line_description"
+            android:justificationMode="inter_word"
+            android:textColor="@color/black"
+            style="@style/DefaultTextStyle"
+            app:layout_constraintTop_toBottomOf="@+id/time_line_title"/>
+
+         <TextView
+            android:id="@+id/time_line_time_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+             android:textSize="10dp"
+            android:visibility="gone"
+            android:textColor="@color/figma_color_nav_border"
+            style="@style/DefaultTextStyle"
+            app:layout_constraintTop_toBottomOf="@+id/time_line_description"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

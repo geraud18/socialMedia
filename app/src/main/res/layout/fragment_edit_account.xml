@@ -3,29 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
-    android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
-    tools:context=".pages.EditAccountActivity">
+    android:id="@+id/fragment_edit_account"
+    android:clickable="true"
+    android:focusable="true"
+    tools:context=".pages.EditAccountFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/top_bar_edit_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/figma_first_color"
+        android:background="@drawable/border_bottom_top_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            style="@style/TitleAppStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/edit_account_title"
+            android:textColor="@color/figma_first_color"
+            android:textSize="20dp" />
+    </androidx.appcompat.widget.Toolbar>
 
 
     <androidx.cardview.widget.CardView
         android:id="@+id/container_block_profile"
         android:layout_width="125dp"
         android:layout_height="120dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="12dp"
+        app:cardBackgroundColor="@color/figma_color_account_profile"
         app:cardCornerRadius="90dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:cardBackgroundColor="@color/figma_color_account_profile"
         app:layout_constraintTop_toBottomOf="@+id/top_bar_edit_account">
 
         <ImageView
@@ -35,7 +47,7 @@
             android:layout_marginLeft="44dp"
             android:layout_marginTop="41dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_profile2" />
+            android:src="@drawable/custumcompactcamera" />
 
     </androidx.cardview.widget.CardView>
 
@@ -63,7 +75,7 @@
         android:layout_marginLeft="33dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/container_block_profile"
-        style="@style/TitleAppStyle"/>
+        style="@style/DefaultTextStyle"/>
 
     <Spinner
         android:id="@+id/edit_account_statut"
@@ -74,6 +86,7 @@
         android:spinnerMode="dropdown"
         android:paddingLeft="12dp"
         android:textSize="15dp"
+        style="@style/DefaultTextStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_account_statut_label" />
@@ -89,7 +102,7 @@
         android:layout_marginLeft="33dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_account_statut"
-        style="@style/TitleAppStyle"/>
+        style="@style/DefaultTextStyle"/>
 
 
     <EditText
@@ -99,6 +112,7 @@
         android:background="@drawable/bg_rounded_input_account"
         android:paddingLeft="12dp"
         android:textSize="15dp"
+        style="@style/DefaultTextStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_account_name_label" />
@@ -113,7 +127,7 @@
         android:layout_marginLeft="33dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_account_name"
-        style="@style/TitleAppStyle"/>
+        style="@style/DefaultTextStyle"/>
 
 
     <EditText
@@ -123,6 +137,7 @@
         android:background="@drawable/bg_rounded_input_account"
         android:paddingLeft="12dp"
         android:textSize="15dp"
+        style="@style/DefaultTextStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_account_firstname_label" />
@@ -137,7 +152,7 @@
         android:layout_marginLeft="33dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_account_firstname"
-        style="@style/TitleAppStyle"/>
+        style="@style/DefaultTextStyle"/>
 
 
     <EditText
@@ -150,6 +165,7 @@
         android:clickable="false"
         android:cursorVisible="false"
         android:focusable="false"
+        style="@style/DefaultTextStyle"
         android:focusableInTouchMode="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -165,7 +181,7 @@
         android:layout_marginLeft="33dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_account_birthday"
-        style="@style/TitleAppStyle"/>
+        style="@style/DefaultTextStyle"/>
 
 
     <EditText
@@ -180,6 +196,7 @@
         android:maxLines="100"
         android:minLines="4"
         android:scrollbars="vertical"
+        style="@style/DefaultTextStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_account_bio_information_label" />
@@ -195,7 +212,7 @@
         android:layout_marginLeft="33dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_account_bio_information"
-        style="@style/TitleAppStyle"/>
+        style="@style/DefaultTextStyle"/>
 
 
     <EditText
@@ -206,6 +223,7 @@
         android:hint="@string/edit_account_link_linkedin"
         android:paddingLeft="12dp"
         android:textSize="15dp"
+        style="@style/DefaultTextStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_account_link_linkedin_label" />
@@ -221,9 +239,28 @@
         android:textColorHint="@color/white"
         android:textSize="15dp"
         android:layout_marginTop="20dp"
+        style="@style/DefaultTextStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_account_link_linkedin" />
 
+    <FrameLayout
+        android:id="@+id/progressbar_update"
+        android:layout_width="@dimen/default_width_input"
+        android:layout_height="@dimen/default_height_input"
+        android:visibility="gone"
+        android:background="@drawable/background_btn_update"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_account_link_linkedin">
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/white"/>
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

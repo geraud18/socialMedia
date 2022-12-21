@@ -36,18 +36,22 @@
     <string name="account_num_post_label">Publication</string>
     <string name="account_num_friend_label">Amis</string>
     <string name="account_btn_modifier_profil">Modifier le profil</string>
+    <string name="account_btn_inviter_friend">Inviter</string>
+    <string name="account_user_title_page">Profile</string>
+    <string name="account_user_invitation">Invitation envoye</string>
     <string name="account_post_label">Publication</string>
     <string name="account_statut_label">Statut</string>
-
+    <string name="account_notifie_data">Aucune donnee disponible</string>
 
     <!--Edit account page-->
-
+    <string name="edit_account_statut_man">Monsieur</string>
+    <string name="edit_account_statut_woman">Madame</string>
     <string-array name="edit_account_statut">
         <item>Selectioner</item>
-        <item>Monsieur</item>
-        <item>Madame</item>
+        <item>@string/edit_account_statut_man</item>
+        <item>@string/edit_account_statut_woman</item>
     </string-array>
-
+    <string name="edit_account_title">@string/account_btn_modifier_profil</string>
     <string name="edit_account_name">Nom</string>
     <string name="edit_account_statut_label">@string/account_statut_label</string>
     <string name="edit_account_firstname">Prenom</string>
@@ -56,6 +60,62 @@
     <string name="edit_account_link_linkedin">Lien (exemple://linkedin.fr)</string>
     <string name="edit_account_btn_update">Mettre a jour</string>
 
+    <!--Language menu-->
 
+    <string name="language_french">Francais</string>
+    <string name="language_english">Anglais</string>
+
+    <!--Error message and success -->
+
+    <string name="error_field_required">Champs obligatoire</string>
+    <string name="notifie_forget_password">Un email vous a ete envoyer pour modifier votre mot de passe</string>
+    <string name="error_google_sign">Google sign in failed</string>
+    <string name="error_field_login_incorrect">Email ou mot de passe incorrect</string>
+    <string name="error_field_empty">Tous les champs ne sont pas remplis</string>
+    <string name="error_password">Mot de passe incorrect</string>
+    <string name="notifie_low_password">Mot de passe faible</string>
+    <string name="notifie_strong_password">Mot de passe fort</string>
+    <string name="notifie_success_update_profil">Le profil a ete modifier</string>
+    <string name="notifie_account_update_language">Langue modifier</string>
+    <string name="notifie_account_select_language">Cette langue est deja active</string>
+    <string name="error_swipe_app">Position not found</string>
+    <string name="notifie_file_empty">Aucune photo n\'a ete prise</string>
+    <string name="notifie_file_save">Fichier Enregister</string>
+    <string name="notifie_publication_field_empty">Le titre ou la description doit etre remplis</string>
+    <string name="notifie_publication_save">Publication reussit</string>
+    <string name="notifie_publication_comment">Aucune valeur saisie</string>
+
+
+    <!-- Publication -->
+
+    <string name="publication_title_label">Titre</string>
+    <string name="publication_description_or_legende_label">Legende/Description</string>
+    <string name="publication_btn_update">Publier</string>
+
+    <!-- TimeLine -->
+
+    <string name="time_line_username">@string/account_username</string>
+    <string name="time_line_data">@string/account_username</string>
+    <string name="time_line_title">Titre</string>
+    <string name="time_line_description">Description</string>
+    <string name="time_line_time_add">Il ya</string>
+    <string name="time_line_date_add">Jours</string>
+    <string name="time_line_date_hours">Heure(s)</string>
+    <string name="time_line_date_minutes">Minute(s)</string>
+    <string name="time_line_date_secondes">Seconde(s)</string>
+
+    <!-- Contact -->
+
+    <string name="contact_model_name">@string/account_notifie_data</string>
+
+    <!-- Comment publication -->
+
+    <string name="comment_plublication_value">Commentaire</string>
+    <string name="comment_plublication_username">@string/time_line_username</string>
+    <string name="comment_plublication_label">Entrer votre commentaire ici</string>
+
+    <!-- Notification -->
+
+    <string name="notification_title_page">Notification</string>
 
 </resources>

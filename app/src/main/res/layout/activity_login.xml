@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_image"
     tools:context=".auth.LoginActivity">
 
     
@@ -56,6 +57,7 @@
         android:hint="@string/login_email"
         android:textSize="15dp"
         android:paddingLeft="12dp"
+        style="@style/DefaultTextStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo_app" />
@@ -79,6 +81,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="12dp"
             android:hint="@string/login_password"
+            style="@style/DefaultTextStyle"
             android:inputType="textPassword"
             android:textSize="15dp"
             android:background="@drawable/bg_rounded_input"
@@ -93,6 +96,7 @@
         android:layout_marginTop="20dp"
         android:textColor="@color/figma_first_color"
         android:text="@string/login_forget_password"
+        style="@style/DefaultTextStyle"
         app:layout_constraintEnd_toEndOf="@+id/login_password_layout"
         app:layout_constraintTop_toBottomOf="@+id/login_password_layout" />
 
@@ -108,6 +112,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
+        style="@style/DefaultTextStyle"
         app:layout_constraintTop_toBottomOf="@+id/login_forget_password" />
 
     <TextView
@@ -116,6 +121,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/login_connecteur_logique"
+        style="@style/DefaultTextStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_connexion_button" />
@@ -128,6 +134,7 @@
         android:text="@string/login_connexion_google_link"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
+        style="@style/DefaultTextStyle"
         app:layout_constraintStart_toStartOf="parent"
         android:textColor="@color/figma_color_google_connection"
         app:layout_constraintTop_toBottomOf="@+id/login_connecteur_logique" />
@@ -145,7 +152,8 @@
             android:id="@+id/login_question_compte"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/login_question_compte" />
+            android:text="@string/login_question_compte"
+            style="@style/DefaultTextStyle"/>
 
 
         <TextView
@@ -154,7 +162,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
             android:textColor="@color/figma_first_color"
-            android:text="@string/login_register_link" />
+            android:text="@string/login_register_link"
+            style="@style/DefaultTextStyle"/>
 
     </LinearLayout>
 

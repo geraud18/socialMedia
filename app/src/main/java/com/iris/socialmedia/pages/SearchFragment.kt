@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import com.iris.socialmedia.R
 
 
-class SearchFragment : Fragment() {
+class SearchFragment(
+    private val context: HomeActivity
+) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

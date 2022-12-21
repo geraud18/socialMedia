@@ -23,10 +23,11 @@ import com.iris.socialmedia.repository.UserRepository.Singleton.firebaseAuth
 
 class RegisterActivity : AppCompatActivity() {
 
-    lateinit var helpers: Helpers
+    val helpers = Helpers()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         setContentView(R.layout.activity_register)
 
         firebaseAuth = FirebaseAuth.getInstance()
@@ -65,7 +66,7 @@ class RegisterActivity : AppCompatActivity() {
             if(!focused){
                 if(helpers.verifPassword(passwordField)) {
                     passwordField.setBackgroundResource(R.drawable.bg_rounded_input_success)
-                    passwordFieldError.text = "Mot de passe fort"
+                    passwordFieldError.text = getString(R.string.notifie_strong_password)
                     passwordFieldError.setTextColor(Color.parseColor("#008000"))
                     passwordFieldError.visibility = View.VISIBLE
                     registerButtonSubmit.setBackgroundResource(R.drawable.bg_rounded)
@@ -73,7 +74,7 @@ class RegisterActivity : AppCompatActivity() {
 
                 }else{
                     passwordField.setBackgroundResource(R.drawable.bg_rounded_input_error)
-                    passwordFieldError.text = "Mot de passe faible"
+                    passwordFieldError.text = getString(R.string.notifie_low_password)
                     passwordFieldError.setTextColor(Color.parseColor("#B22222"))
                     passwordFieldError.visibility = View.VISIBLE
                     registerButtonSubmit.setBackgroundResource(R.drawable.bg_rounded_disabled)
@@ -86,7 +87,7 @@ class RegisterActivity : AppCompatActivity() {
             if(!focused){
                 if(helpers.verifPassword(confirmPasswordField)) {
                     confirmPasswordField.setBackgroundResource(R.drawable.bg_rounded_input_success)
-                    confirmPasswordFieldError.text = "Mot de passe fort"
+                    confirmPasswordFieldError.text = getString(R.string.notifie_strong_password)
                     confirmPasswordFieldError.setTextColor(Color.parseColor("#008000"))
                     confirmPasswordFieldError.visibility = View.VISIBLE
                     registerButtonSubmit.setBackgroundResource(R.drawable.bg_rounded)
@@ -94,7 +95,7 @@ class RegisterActivity : AppCompatActivity() {
 
                 }else{
                     confirmPasswordField.setBackgroundResource(R.drawable.bg_rounded_input_error)
-                    confirmPasswordFieldError.text = "Mot de passe faible"
+                    confirmPasswordFieldError.text = getString(R.string.notifie_low_password)
                     confirmPasswordFieldError.setTextColor(Color.parseColor("#B22222"))
                     confirmPasswordFieldError.visibility = View.VISIBLE
                     registerButtonSubmit.setBackgroundResource(R.drawable.bg_rounded_disabled)
@@ -106,6 +107,7 @@ class RegisterActivity : AppCompatActivity() {
         loginLink.setOnClickListener {
             val loginActivity = Intent(this, LoginActivity::class.java)
             startActivity(loginActivity)
+            finish()
         }
 
         registerButtonSubmit.setOnClickListener { registerUser() }
@@ -131,6 +133,7 @@ class RegisterActivity : AppCompatActivity() {
                         if (firebaseUser != null) {
                             val user = UserModel(
                                 firebaseUser.uid,
+                                "fr",
                                 "",
                                 email,
                                 "",
@@ -144,8 +147,11 @@ class RegisterActivity : AppCompatActivity() {
                             dataBaseReferenceUser.child(firebaseUser.uid).setValue(user)
                         }
 
-                        val homeActivity = Intent(this, HomeActivity::class.java)
-                        startActivity(homeActivity)
+                        helpers.startApplication(this){
+                            val homeActivity = Intent(this, HomeActivity::class.java)
+                            startActivity(homeActivity)
+                            finish()
+                        }
 
                     }else{
                         Toast.makeText(this,it.exception.toString(), Toast.LENGTH_SHORT).show()
@@ -153,13 +159,13 @@ class RegisterActivity : AppCompatActivity() {
                 }
 
             }else{
-                confirmPasswordFieldError.text = "Mot de passe incorrect"
+                confirmPasswordFieldError.text = getString(R.string.error_password)
                 confirmPasswordFieldError.setTextColor(Color.parseColor("#B22222"))
                 confirmPasswordFieldError.visibility = View.VISIBLE
             }
         }
         else{
-            Toast.makeText(this,"Tous les champs ne sont pas remplis", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,getString(R.string.error_field_empty), Toast.LENGTH_SHORT).show()
         }
 
     }

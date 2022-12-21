@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/container_notification_remove"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/view_separation"
+                android:layout_width="1dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <ImageView
+                android:id="@+id/delete_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/closeicon"
+                app:layout_constraintBottom_toTopOf="@+id/view_separation"
+                app:layout_constraintTop_toBottomOf="@+id/view_separation"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                style="@style/TitleAppStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:text="supprimmer"
+                android:textSize="25dp"
+                app:layout_constraintBottom_toTopOf="@+id/view_separation"
+                app:layout_constraintStart_toEndOf="@+id/delete_button"
+                app:layout_constraintTop_toBottomOf="@+id/view_separation" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/container_notification_remove">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/view_separation2"
+                android:layout_width="1dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <ImageView
+                android:id="@+id/notification_accept"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/custumadd"
+                app:layout_constraintBottom_toTopOf="@+id/view_separation2"
+                app:layout_constraintTop_toBottomOf="@+id/view_separation2"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                style="@style/TitleAppStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:text="accepter"
+                android:textSize="25dp"
+                app:layout_constraintBottom_toTopOf="@+id/view_separation2"
+                app:layout_constraintStart_toEndOf="@+id/notification_accept"
+                app:layout_constraintTop_toBottomOf="@+id/view_separation2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,6 +17,7 @@ class ForgetPasswordActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         setContentView(R.layout.activity_forget_password)
 
         firebaseAuth = FirebaseAuth.getInstance()
@@ -29,6 +30,7 @@ class ForgetPasswordActivity : AppCompatActivity() {
         forgetPasswordErrorReturnLogin.setOnClickListener {
             val loginActivity = Intent(this, LoginActivity::class.java)
             startActivity(loginActivity)
+            finish()
         }
     }
 
@@ -40,12 +42,12 @@ class ForgetPasswordActivity : AppCompatActivity() {
         val forgetPasswordErrorReturnLogin = findViewById<Button>(R.id.forget_reset_password_return_login)
 
         if(emailField.isEmpty()){
-            forgetPasswordError.text = "Champs obligatoire"
+            forgetPasswordError.text = getString(R.string.error_field_required)
             forgetPasswordError.visibility = View.VISIBLE
         }else{
             FirebaseAuth.getInstance().sendPasswordResetEmail(emailField).addOnCompleteListener {
                 if(it.isSuccessful){
-                    forgetPasswordError.text = "Un email vous a ete envoyer pour modifier votre mot de passe"
+                    forgetPasswordError.text = getString(R.string.notifie_forget_password)
                     forgetPasswordError.setTextColor(Color.parseColor("#008000"))
                     forgetPasswordError.visibility = View.VISIBLE
                     btnSubmitForgetPassword.visibility = View.GONE

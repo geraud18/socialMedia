@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <item
         android:id="@+id/overflowMenu"
         android:icon="@drawable/ic_option_language"
-        app:itemIconTint="@color/black"
+        app:iconTint="@color/black"
         android:title=""
         app:showAsAction="always">
         <menu>
             <item
                 android:id="@+id/french"
-                android:title="Francais"
+                android:title="@string/language_french"
                 app:showAsAction="never" />
             <item
                 android:id="@+id/english"
-                android:title="Anglais"
+                android:title="@string/language_english"
                 app:showAsAction="never" />
         </menu>
     </item>
-
 </menu>

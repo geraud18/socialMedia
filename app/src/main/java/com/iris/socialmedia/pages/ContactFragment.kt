@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import com.iris.socialmedia.R
 
 
-class ContactFragment : Fragment() {
+class ContactFragment(
+    private val context: HomeActivity
+) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

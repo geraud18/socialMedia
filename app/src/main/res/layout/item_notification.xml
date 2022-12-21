@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:background="@drawable/border_top_nav_bar_comment"
+    app:cardBackgroundColor="@color/figma_color_publication"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/container_image_profile_notification"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/notification_user_image"
+                    android:layout_width="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_account"
+                    android:transitionName="small_image" />
+
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:id="@+id/notification_separation"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="7dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/container_image_profile_notification"
+            app:layout_constraintTop_toTopOf="@+id/container_image_profile_notification"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/notification_username"
+            style="@style/DefaultTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time_line_username"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:layout_marginLeft="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/notification_separation"
+            app:layout_constraintStart_toEndOf="@+id/container_image_profile_notification"/>
+
+        <ImageView
+            android:id="@+id/notification_more_option"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/custummore"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:textColor="@color/black"
+            android:layout_marginRight="10dp"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/notification_separation"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/notification_username"
+            app:layout_constraintTop_toBottomOf="@+id/notification_separation">
+
+                <TextView
+                    style="@style/DefaultTextStyle"
+                    android:id="@+id/notification_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="35dp"
+                    android:text="@string/account_num_post"
+                    android:textSize="10dp"
+                    android:textColor="@color/black" />
+
+        </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

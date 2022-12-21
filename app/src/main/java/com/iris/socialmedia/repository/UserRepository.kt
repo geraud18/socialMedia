@@ -1,19 +1,25 @@
 package com.iris.socialmedia.repository
 
+import android.annotation.SuppressLint
 import android.net.Uri
+import android.provider.ContactsContract.Data
 import com.google.android.gms.tasks.Continuation
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import com.iris.socialmedia.model.UserModel
 import com.iris.socialmedia.repository.UserRepository.Singleton.dataBaseReferenceUser
 import com.iris.socialmedia.repository.UserRepository.Singleton.downloadlProfileImage
 import com.iris.socialmedia.repository.UserRepository.Singleton.firebaseAuth
+import com.iris.socialmedia.repository.UserRepository.Singleton.id_current_user
 import com.iris.socialmedia.repository.UserRepository.Singleton.storageReference
 import com.iris.socialmedia.repository.UserRepository.Singleton.userData
 
@@ -23,16 +29,19 @@ class UserRepository {
     object Singleton {
 
         // LIEN POUR ACCEDER A NOTRE BOITE DE STOCKAGE (BUCKET)
-        private val BLUCKET_URL:String = "gs://social-network-2b790.appspot.com"
-
+        // private val BLUCKET_URL:String = "gs://social-network-2b790.appspot.com"
         lateinit var firebaseAuth: FirebaseAuth
 
+        val storageReference: StorageReference = FirebaseStorage.getInstance().reference.child("profileImage")
+
         // SE CONECTER A NOTRE ESPACE DE STOCKAGE
-        val storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(BLUCKET_URL)
+      //  val storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(BLUCKET_URL)
 
         val dataBaseReferenceUser = FirebaseDatabase.getInstance().getReference("users")
 
         var downloadlProfileImage:Uri? = null
+
+        var id_current_user: String? = null
 
         var userData = UserModel("","","","","","","","","","","")
 
@@ -41,10 +50,11 @@ class UserRepository {
     fun initDataUser(callback: () -> Unit){
 
         // METTRE LES DONNEES DE NOTRE UTILISATEUR DANS LA L'OBJET USERDATA
-        dataBaseReferenceUser.addValueEventListener(object : ValueEventListener {
+        dataBaseReferenceUser.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val currentuser = firebaseAuth.currentUser
                 if (currentuser != null) {
+                    id_current_user = currentuser.uid
                     for(ds in snapshot.children){
                         // CONSTRUIRE UN OBJET USER
                         val data = ds.getValue(UserModel::class.java)
@@ -62,13 +72,9 @@ class UserRepository {
         })
     }
 
-    fun updateUser(userModel: UserModel) {
-        val currentuser = firebaseAuth.currentUser
-        if (currentuser != null) {
-            dataBaseReferenceUser.child(currentuser.uid).setValue(userModel)
-        }
-    }
+    fun updateUser(userModel: UserModel) = dataBaseReferenceUser.child(userModel.id).setValue(userModel)
 
+    @SuppressLint("SuspiciousIndentation")
     fun uploadImageProfile(file: Uri, callback: () -> Unit ){
         // VERIFIER QUE LE FICHIER N'EST PAS NULL
         if(file != null){
@@ -79,22 +85,22 @@ class UserRepository {
             val ref = storageReference.child(filename.toString())
             val uploadTask = ref.putFile(file)
 
-                // DEMARRER L'ENVOIE
-                uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot,Task<Uri>> {
-                        task ->
-                    // VERIFIER SI IL A UN PROBLEME LORS DE L'ENVOI
-                    if(!task.isSuccessful){
-                        task.exception?.let{ throw it }
-                    }
-                    return@Continuation ref.downloadUrl
-                }).addOnCompleteListener { task->
-                    // VERIFIER SI TOUS A FONCTIONNER
-                    if(task.isSuccessful){
-                        // RECUPERER L'IMAGE
-                        downloadlProfileImage = task.result
-                        callback()
-                    }
+            // DEMARRER L'ENVOIE
+            uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot,Task<Uri>> {
+                    task ->
+                // VERIFIER SI IL A UN PROBLEME LORS DE L'ENVOI
+                if(!task.isSuccessful){
+                    task.exception?.let{ throw it }
                 }
+                return@Continuation ref.downloadUrl
+            }).addOnCompleteListener { task->
+                // VERIFIER SI TOUS A FONCTIONNER
+                if(task.isSuccessful){
+                    // RECUPERER L'IMAGE
+                    downloadlProfileImage = task.result
+                    callback()
+                }
+            }
         }
     }
 

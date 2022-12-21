@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.iris.socialmedia.R
+import com.iris.socialmedia.methodes.Helpers
 import com.iris.socialmedia.model.UserModel
 import com.iris.socialmedia.pages.HomeActivity
 import com.iris.socialmedia.repository.UserRepository.Singleton.dataBaseReferenceUser
@@ -27,9 +28,11 @@ import com.iris.socialmedia.repository.UserRepository.Singleton.firebaseAuth
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var googleSignInClient: GoogleSignInClient
+    val helpers = Helpers()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         setContentView(R.layout.activity_login)
 
         firebaseAuth = FirebaseAuth.getInstance()
@@ -49,11 +52,13 @@ class LoginActivity : AppCompatActivity() {
         registerLink.setOnClickListener {
             val registerActivity = Intent(this, RegisterActivity::class.java)
             startActivity(registerActivity)
+            finish()
         }
 
         btnLoginForgetPassword.setOnClickListener {
             val forgetPasswordActivity = Intent(this, ForgetPasswordActivity::class.java)
             startActivity(forgetPasswordActivity)
+            finish()
         }
 
         btnLoginGoogle.setOnClickListener { loginGoogle() }
@@ -75,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
             Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
             firebaseAuthWithGoogle(account.idToken!!)
         }catch (e:ApiException){
-            Log.w(TAG, "Google sign in failed", e)
+            Log.w(TAG, getString(R.string.error_google_sign), e)
         }
     }
 
@@ -101,6 +106,7 @@ class LoginActivity : AppCompatActivity() {
         if (firebaseUser != null) {
             val user = UserModel(
                 firebaseUser.uid,
+                "fr",
                 "",
                 firebaseUser.email,
                 "",
@@ -112,8 +118,11 @@ class LoginActivity : AppCompatActivity() {
                 ""
             )
             dataBaseReferenceUser.child(firebaseUser.uid).setValue(user)
-            val homeActivity = Intent(this, HomeActivity::class.java)
-            startActivity(homeActivity)
+            helpers.startApplication(this){
+                val homeActivity = Intent(this, HomeActivity::class.java)
+                startActivity(homeActivity)
+                finish()
+            }
         }
 
     }
@@ -127,16 +136,19 @@ class LoginActivity : AppCompatActivity() {
 
                 firebaseAuth.signInWithEmailAndPassword(emailField, passwordField).addOnCompleteListener {
                     if(it.isSuccessful){
-                        val homeActivity = Intent(this, HomeActivity::class.java)
-                        startActivity(homeActivity)
+                        helpers.startApplication(this){
+                            val homeActivity = Intent(this, HomeActivity::class.java)
+                            startActivity(homeActivity)
+                            finish()
+                        }
                     }else{
-                        loginError.text = "Email ou mot de passe incorrect"
+                        loginError.text = getString(R.string.error_field_login_incorrect)
                         loginError.visibility = View.VISIBLE
                     }
                 }
         }
         else{
-            loginError.text = "Tous les champs ne sont pas remplit"
+            loginError.text = getString(R.string.error_field_empty)
             loginError.visibility = View.VISIBLE
         }
 

@@ -30,10 +30,6 @@ class MainActivity : AppCompatActivity() {
         startFirstPage()
     }
 
-    override fun onResume() {
-        super.onResume()
-        finish()
-    }
 
     private fun startFirstPage() {
         firebaseAuth = FirebaseAuth.getInstance()
@@ -42,10 +38,12 @@ class MainActivity : AppCompatActivity() {
             helpers.startApplication(this){
                 val homeActivity = Intent(this, HomeActivity::class.java)
                 startActivity(homeActivity)
+                finish()
             }
         }else{
             val loginActivity = Intent(this, LoginActivity::class.java)
             startActivity(loginActivity)
+            finish()
         }
     }
 

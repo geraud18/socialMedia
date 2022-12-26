@@ -17,7 +17,9 @@ class ChatFragment(
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_chat, container, false)
+        val viewFragmentChat = inflater.inflate(R.layout.fragment_chat, container, false)
+
+        return viewFragmentChat
     }
 
 }

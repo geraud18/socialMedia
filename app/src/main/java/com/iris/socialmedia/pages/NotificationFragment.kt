@@ -48,7 +48,8 @@ class NotificationFragment(
                 val repoContact = ContactRepository()
                 repoContact.countNotification(id_current_user!!) {
                     if(contactNotification.size > 0){
-                        listNotificationRecycleView?.adapter = NotificationAdapter(context, contactNotification.sortedBy { it.date },R.layout.item_notification)
+                        contactNotification.sortByDescending { it.date }
+                        listNotificationRecycleView?.adapter = NotificationAdapter(context, contactNotification ,R.layout.item_notification)
                     }
                 }
             }

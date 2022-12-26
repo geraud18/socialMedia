@@ -5,5 +5,6 @@ class ContactModel(
     var user_id: String = "vide",
     var guest_id: String = "vide",
     var decision: String? = null,
-    var date: String = "vide"
+    var date: String = "vide",
+    var user_name_guest: String = "vide"
 )

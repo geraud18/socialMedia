@@ -37,7 +37,7 @@ class PublicationRepository {
 
       var publicationData = PublicationModel("","","","","","")
 
-      var publicationDataUser = UserModel("","","","","","","","","","","")
+      var publicationDataUser = UserModel("","","","","","","","","","","","")
 
       val publicationList = arrayListOf<PublicationModel>()
 

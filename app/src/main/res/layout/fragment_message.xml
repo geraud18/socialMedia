@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/backgroundchat"
+    android:clickable="true"
+    android:focusable="true"
+    tools:context=".pages.MessageFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/top_bar_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_bottom_top_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/container_image_profile_message"
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:textAlignment="center"
+                app:cardCornerRadius="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/message_receive_user_image"
+                    android:layout_width="match_parent"
+                    android:src="@drawable/ic_account"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/message_receive_user_name"
+                style="@style/TitleAppStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_marginLeft="10dp"
+                android:text="gggg"
+                android:textColor="@color/figma_first_color"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/container_image_profile_message"
+                app:layout_constraintStart_toEndOf="@+id/container_image_profile_message"
+                app:layout_constraintTop_toTopOf="@+id/container_image_profile_message" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/message_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/messageLayout"
+        android:layout_marginTop="51dp"
+        android:layout_marginBottom="55dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/top_bar_message"/>
+
+    <LinearLayout
+        android:id="@+id/messageLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <EditText
+            android:id="@+id/message_send_text"
+            android:layout_width="@dimen/default_width_input"
+            android:layout_height="@dimen/default_height_input"
+            android:layout_weight="1"
+            android:background="@drawable/bg_rounded_input_account"
+            android:hint="Ecrivez un message"
+            android:fontFamily="@font/roboto"
+            android:paddingLeft="12dp" />
+
+        <ImageButton
+            android:id="@+id/message_send_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="9dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:elevation="1dp"
+            android:src="@drawable/custumsmalladd" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

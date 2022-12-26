@@ -142,6 +142,7 @@ class RegisterActivity : AppCompatActivity() {
                                 "",
                                 "",
                                 "",
+                                "",
                                 ""
                             )
                             dataBaseReferenceUser.child(firebaseUser.uid).setValue(user)

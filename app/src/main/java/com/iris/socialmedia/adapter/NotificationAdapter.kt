@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -13,14 +14,18 @@ import com.iris.socialmedia.R
 import com.iris.socialmedia.methodes.Helpers
 import com.iris.socialmedia.model.ContactModel
 import com.iris.socialmedia.pages.HomeActivity
+import com.iris.socialmedia.repository.ContactRepository
+import com.iris.socialmedia.repository.ContactRepository.Singleton.contactData
 import com.iris.socialmedia.repository.PublicationRepository
 import com.iris.socialmedia.repository.PublicationRepository.Singleton.publicationDataUser
+import com.iris.socialmedia.repository.UserRepository
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class NotificationAdapter(
     private val context: HomeActivity,
-    private val notificationList: List<ContactModel>,
+    private val notificationList: ArrayList<ContactModel>,
     private val layoutId: Int) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
 
     val helpers = Helpers()
@@ -43,6 +48,7 @@ class NotificationAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentNotification = notificationList[position]
         val repoPublication = PublicationRepository()
+        val repoContact = ContactRepository()
 
         repoPublication.getDataUser(currentNotification.guest_id){
             if(publicationDataUser.name == "" && publicationDataUser.firstname == ""){
@@ -88,7 +94,72 @@ class NotificationAdapter(
 
         holder.moreOption.setOnClickListener {
             val dialog = BottomSheetDialog(context)
-            dialog.setContentView(R.layout.popup_option_item)
+            dialog.setContentView(R.layout.popup_option_notification)
+           // dialog.setCancelable(false)
+            val imageProfileUser = dialog.findViewById<ImageView>(R.id.notification_image)
+            val notificationRemove = dialog.findViewById<ImageView>(R.id.notification_remove)
+            val notificationAccept = dialog.findViewById<ImageView>(R.id.notification_accept)
+            var usernameFirst: String? = ""
+            var usernameGuest: String? = ""
+
+            repoPublication.getDataUser(currentNotification.guest_id){
+                if(publicationDataUser.profile?.isNotEmpty() == true){
+                    if(publicationDataUser.name == "" && publicationDataUser.firstname == ""){
+                        usernameGuest = "${publicationDataUser.username}"
+                    }
+                    else{
+                        usernameGuest = "${publicationDataUser.name}  ${publicationDataUser.firstname}"
+                    }
+                    if (imageProfileUser != null) {
+                        Glide.with(context).load(Uri.parse(publicationDataUser.profile)).into(imageProfileUser)
+                        helpers.updateCircleImage(imageProfileUser)
+                    }
+                }
+            }
+
+            repoPublication.getDataUser(currentNotification.user_id){
+                if(publicationDataUser.profile?.isNotEmpty() == true){
+                    if(publicationDataUser.name == "" && publicationDataUser.firstname == ""){
+                        usernameFirst = "${publicationDataUser.username}"
+                    }
+                    else{
+                        usernameFirst = "${publicationDataUser.name}  ${publicationDataUser.firstname}"
+                    }
+                }
+            }
+
+            notificationRemove?.setOnClickListener {
+                repoContact.deleteContact(currentNotification)
+                dialog.dismiss()
+                notificationList.removeAt(position)
+                this.notifyItemRemoved(position)
+                context.invalidateMenu()
+            }
+
+            notificationAccept?.setOnClickListener {
+                repoContact.acceptContact(currentNotification.user_id,currentNotification.guest_id,usernameGuest!!){
+                    dialog.dismiss()
+
+                    contactData.id = UUID.randomUUID().toString()
+                    contactData.user_id = currentNotification.guest_id
+                    contactData.guest_id = currentNotification.user_id
+                    contactData.decision = "accpeter"
+                    contactData.user_name_guest = usernameFirst!!
+
+                    val time = Calendar.getInstance().time
+                    val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm")
+                    val currentTime = formatter.format(time)
+                    contactData.date = currentTime
+
+                    repoContact.saveContact(contactData)
+
+                    notificationList.removeAt(position)
+                    this.notifyItemRemoved(position)
+                    context.invalidateMenu()
+                    Toast.makeText(context,context.getString(R.string.account_user_invitation_accept),Toast.LENGTH_SHORT).show()
+                }
+            }
+
             dialog.show()
         }
     }

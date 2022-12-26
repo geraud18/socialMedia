@@ -6,20 +6,69 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.iris.socialmedia.model.ContactModel
 import com.iris.socialmedia.model.EtatModel
+import com.iris.socialmedia.repository.ContactRepository.Singleton.contactList
 import com.iris.socialmedia.repository.ContactRepository.Singleton.contactNotification
 import com.iris.socialmedia.repository.ContactRepository.Singleton.dataBaseReferenceContact
 import com.iris.socialmedia.repository.ContactRepository.Singleton.etatInvitationSend
 import com.iris.socialmedia.repository.ContactRepository.Singleton.numberNotification
+import com.iris.socialmedia.repository.ContactRepository.Singleton.searchContactList
 
 class ContactRepository {
 
     object Singleton {
         val dataBaseReferenceContact = FirebaseDatabase.getInstance().getReference("contacts")
         var contactData = ContactModel("","","","","")
-        val contactList = arrayListOf<ContactModel>()
-        val contactNotification = arrayListOf<ContactModel>()
+        val contactList = ArrayList<ContactModel>()
+        val searchContactList = ArrayList<ContactModel>()
+        val contactNotification = ArrayList<ContactModel>()
         var etatInvitationSend:Boolean = false
         var numberNotification:Int = 0
+    }
+
+
+    fun contactListUser(user_id : String,callback: () -> Unit){
+        dataBaseReferenceContact.addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                contactList.clear()
+                for(ds in snapshot.children){
+                    val contactItem = ds.getValue(ContactModel::class.java)
+                    if(contactItem != null){
+                        if(contactItem.id != ""){
+                            if(contactItem.user_id == user_id && contactItem.decision == "accpeter"){
+                                contactList.add(contactItem)
+                            }
+                        }
+                    }
+                }
+                callback()
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+
+
+    fun searchContactListUser(user_id : String,searchValue: String,callback: () -> Unit){
+        dataBaseReferenceContact.addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                searchContactList.clear()
+                for(ds in snapshot.children){
+                    val searchContactItem = ds.getValue(ContactModel::class.java)
+                    if(searchContactItem != null){
+                        if(searchContactItem.id != ""){
+                            if(searchContactItem.user_id == user_id && searchContactItem.decision == "accpeter"){
+                                if(searchContactItem.user_name_guest.contains(searchValue, ignoreCase = true)){
+                                    searchContactList.add(searchContactItem)
+                                }
+                            }
+                        }
+                    }
+                }
+                callback()
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
     }
 
     fun checkInvitationSend(user_id: String, guest_id : String,callback: () -> Unit) {
@@ -67,5 +116,31 @@ class ContactRepository {
         })
     }
 
+    fun acceptContact(user_id: String, guest_id : String,userName: String,callback: () -> Unit){
+        dataBaseReferenceContact.addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                etatInvitationSend = false
+                for(ds in snapshot.children){
+                    val invitation = ds.getValue(ContactModel::class.java)
+                    if(invitation != null){
+                        if(invitation.id != ""){
+                            if(invitation.user_id == user_id && invitation.guest_id == guest_id && invitation.decision == "en attentes"){
+                                val map = mutableMapOf<String, String>()
+                                map["decision"] = "accpeter"
+                                map["user_name_guest"] = userName
+                                ds.ref.updateChildren(map as Map<String, Any>)
+                            }
+                        }
+                    }
+                }
+                callback()
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+
     fun saveContact(contactModel: ContactModel) = dataBaseReferenceContact.child(contactModel.id).setValue(contactModel)
+
+    fun deleteContact(contactModel: ContactModel) = dataBaseReferenceContact.child(contactModel.id).removeValue()
 }

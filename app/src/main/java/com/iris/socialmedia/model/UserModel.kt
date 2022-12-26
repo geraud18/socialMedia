@@ -12,5 +12,6 @@ class UserModel (
     var statut:String? = "vide",
     var linkedIn:String? = "vide",
     var profile:String? = null,
+    var connect:String? = "vide",
     var bioInformation:String? = "vide"
 )

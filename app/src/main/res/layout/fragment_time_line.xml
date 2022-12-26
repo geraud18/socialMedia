@@ -11,7 +11,7 @@
         style="@style/TitleAppStyle"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:text="@string/contact_model_name"
+        android:text="@string/account_notifie_data"
         android:textSize="20dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

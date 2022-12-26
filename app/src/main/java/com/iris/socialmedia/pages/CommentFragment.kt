@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.iris.socialmedia.R
 import com.iris.socialmedia.adapter.CommentAdapter
+import com.iris.socialmedia.adapter.ContactAdapter
+import com.iris.socialmedia.repository.ContactRepository
 import com.iris.socialmedia.repository.EtatRepository
 import com.iris.socialmedia.repository.EtatRepository.Singleton.etatData
 import com.iris.socialmedia.repository.EtatRepository.Singleton.etatListComment
@@ -26,6 +28,9 @@ class CommentFragment(
     private val context: HomeActivity
 ) : Fragment() {
 
+    private var listCommentRecycleView: RecyclerView? = null
+    private lateinit var commentAdapter: CommentAdapter
+
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +43,7 @@ class CommentFragment(
 
         val publicationId = requireArguments().getString("publication_id")
 
-        val listCommentRecycleView = viewFragmentComment?.findViewById<RecyclerView>(R.id.comment_publication_list)
+        listCommentRecycleView = viewFragmentComment?.findViewById(R.id.comment_publication_list)
         val commentSendButton = viewFragmentComment?.findViewById<ImageButton>(R.id.comment_send_button)
         val commentSendText = viewFragmentComment?.findViewById<EditText>(R.id.comment_send_text)
 
@@ -49,7 +54,8 @@ class CommentFragment(
                 val repoEtat = EtatRepository()
                 repoEtat.getListComment(publicationId.toString()) {
                     if(etatListComment.size > 0){
-                        listCommentRecycleView?.adapter = CommentAdapter(context, etatListComment.sortedBy { it.date },R.layout.item_comment_publication)
+                        commentAdapter = CommentAdapter(context, etatListComment.sortedBy { it.date },R.layout.item_comment_publication)
+                        listCommentRecycleView?.adapter = commentAdapter
                         listCommentRecycleView?.visibility = View.VISIBLE
                     }
                 }
@@ -83,11 +89,9 @@ class CommentFragment(
 
                 repoEtat.getListComment(publicationId.toString()) {
                     if(etatListComment.size > 0){
-                        var commentAdapt = CommentAdapter(context, etatListComment.sortedBy { it.date },R.layout.item_comment_publication)
-                        commentAdapt.notifyDataSetChanged()
-                        listCommentRecycleView?.invalidate()
-                        listCommentRecycleView?.adapter = commentAdapt
-                        listCommentRecycleView?.visibility = View.VISIBLE
+                        commentAdapter =  CommentAdapter(context, etatListComment.sortedBy { it.date },R.layout.item_comment_publication)
+                        listCommentRecycleView?.adapter = commentAdapter
+                        commentAdapter.notifyDataSetChanged()
                         commentSendText?.setText("")
                     }
                 }

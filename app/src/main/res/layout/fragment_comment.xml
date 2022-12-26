@@ -56,6 +56,7 @@
             android:layout_weight="1"
             android:background="@drawable/bg_rounded_input_account"
             android:hint="@string/comment_plublication_label"
+            android:fontFamily="@font/roboto"
             android:paddingLeft="12dp" />
 
         <ImageButton

@@ -17,8 +17,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.iris.socialmedia.R
+import com.iris.socialmedia.adapter.CommentAdapter
 import com.iris.socialmedia.adapter.ImagePublicationAdapter
 import com.iris.socialmedia.adapter.TimeLineAdapter
+import com.iris.socialmedia.repository.EtatRepository
 import com.iris.socialmedia.repository.PublicationRepository
 import com.iris.socialmedia.repository.PublicationRepository.Singleton.publicationList
 import com.iris.socialmedia.repository.UserRepository
@@ -27,6 +29,9 @@ import com.iris.socialmedia.repository.UserRepository.Singleton.firebaseAuth
 class TimeLineFragment(
     private val context: HomeActivity
 ) : Fragment() {
+
+    private var listTimeLineRecycleView: RecyclerView? = null
+    private lateinit var timeLineAdapter: TimeLineAdapter
 
     @SuppressLint("MissingInflatedId", "SuspiciousIndentation")
     override fun onCreateView(
@@ -40,7 +45,7 @@ class TimeLineFragment(
 
         viewFragmentTimeLine?.findViewById<ProgressBar>(R.id.time_line_progressbar_load_data)?.visibility = View.VISIBLE
 
-        val listTimeLineRecycleView = viewFragmentTimeLine?.findViewById<RecyclerView>(R.id.time_line_list)
+        listTimeLineRecycleView = viewFragmentTimeLine?.findViewById(R.id.time_line_list)
 
         var handler = Handler()
         handler.postDelayed(object :Runnable{
@@ -48,7 +53,8 @@ class TimeLineFragment(
                 val repoPublication = PublicationRepository()
                 repoPublication.initDataPublication {
                     if(publicationList.size > 0){
-                        listTimeLineRecycleView?.adapter = TimeLineAdapter(context, publicationList.sortedBy { it.date },R.layout.item_time_line)
+                        timeLineAdapter = TimeLineAdapter(context, publicationList.sortedBy { it.date },R.layout.item_time_line)
+                        listTimeLineRecycleView?.adapter = timeLineAdapter
                         // viewFragmentTimeLine?.findViewById<ProgressBar>(R.id.time_line_progressbar_load_data)?.visibility = View.GONE
                         viewFragmentTimeLine?.findViewById<ProgressBar>(R.id.time_line_progressbar_load_data)?.visibility = View.GONE
                         listTimeLineRecycleView?.visibility = View.VISIBLE
@@ -69,18 +75,14 @@ class TimeLineFragment(
                     val repoPublication = PublicationRepository()
                     repoPublication.initDataPublication {
                         if(publicationList.size > 0){
-                            var timeLIneAdapt = TimeLineAdapter(context, publicationList.sortedBy { it.date },R.layout.item_time_line)
-                            timeLIneAdapt.notifyDataSetChanged()
-                            listTimeLineRecycleView?.invalidate()
-                            listTimeLineRecycleView?.adapter = timeLIneAdapt
-                            listTimeLineRecycleView?.visibility = View.VISIBLE
+                            timeLineAdapter =  TimeLineAdapter(context, publicationList.sortedBy { it.date },R.layout.item_time_line)
+                            listTimeLineRecycleView?.adapter = timeLineAdapter
+                            timeLineAdapter.notifyDataSetChanged()
                           //  viewFragmentTimeLine?.findViewById<ProgressBar>(R.id.time_line_progressbar_load_data)?.visibility = View.GONE
                         }else{
                             viewFragmentTimeLine?.findViewById<TextView>(R.id.time_line_data)?.visibility = View.VISIBLE
                         }
                     }
-
-
                 }
             },1000)
             swipeRefreshLayout.isRefreshing = false

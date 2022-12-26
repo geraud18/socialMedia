@@ -43,12 +43,11 @@ class UserRepository {
 
         var id_current_user: String? = null
 
-        var userData = UserModel("","","","","","","","","","","")
+        var userData = UserModel("","","","","","","","","","","","")
 
     }
 
     fun initDataUser(callback: () -> Unit){
-
         // METTRE LES DONNEES DE NOTRE UTILISATEUR DANS LA L'OBJET USERDATA
         dataBaseReferenceUser.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -62,10 +61,29 @@ class UserRepository {
                         if(data != null && data.id == currentuser.uid ){
                             // METTRE A OUR MON OBJET
                             userData = data
+                            val map = mutableMapOf<String, String>()
+                            map["connect"] = "true"
+                            ds.ref.updateChildren(map as Map<String, Any>)
                         }
                     }
                 }
+                callback()
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
 
+    fun logoutDataUser(callback: () -> Unit){
+        dataBaseReferenceUser.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                    for(ds in snapshot.children){
+                        val data = ds.getValue(UserModel::class.java)
+                        if(data != null && data.id == id_current_user!! ){
+                            val map = mutableMapOf<String, String>()
+                            map["connect"] = "false"
+                            ds.ref.updateChildren(map as Map<String, Any>)
+                        }
+                    }
                 callback()
             }
             override fun onCancelled(error: DatabaseError) {}

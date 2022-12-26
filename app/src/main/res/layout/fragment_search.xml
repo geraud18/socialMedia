@@ -1,18 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".pages.SearchFragment">
 
-
-    <TextView
-        android:background="@color/figma_color_error"
-        android:textAlignment="center"
-        android:textSize="40dp"
-        android:paddingTop="60dp"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_publication"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Search" />
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:iconifiedByDefault="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="35dp"
+        android:layoutDirection="rtl"
+        app:iconifiedByDefault="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/DefaultTextStyle"
+        app:queryHint="@string/contact_search_label" />
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_publication_list"
+        android:layout_width="match_parent"
+        android:layout_height="665dp"
+        android:layout_marginTop="20dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/search_publication"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

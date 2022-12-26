@@ -31,7 +31,7 @@ class ImagePublicationAdapter(
         if (p1 == null) {
             imagesPublication = ImageView(context)
             imagesPublication.scaleType = ImageView.ScaleType.FIT_CENTER
-            imagesPublication.layoutParams = AbsListView.LayoutParams(400,400)
+            imagesPublication.layoutParams = AbsListView.LayoutParams(345,345)
         } else {
             imagesPublication = p1 as ImageView
         }

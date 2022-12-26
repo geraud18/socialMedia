@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Flow</string>
     <string name="app_sub_name">Communiquez ensemble</string>
+    <string name="app_logout">Deconnecter</string>
 
     <!--Login page -->
 
@@ -12,6 +13,7 @@
     <string name="login_connecteur_logique">Ou</string>
     <string name="login_question_compte">Vous n\'avez pas encore de compte ?</string>
     <string name="login_register_link">Inscrivez-vous</string>
+    <string name="login_check_user_connect_true">En ligne</string>
 
     <!-- Register page -->
 
@@ -39,6 +41,7 @@
     <string name="account_btn_inviter_friend">Inviter</string>
     <string name="account_user_title_page">Profile</string>
     <string name="account_user_invitation">Invitation envoye</string>
+    <string name="account_user_invitation_accept">Invitation accepter</string>
     <string name="account_post_label">Publication</string>
     <string name="account_statut_label">Statut</string>
     <string name="account_notifie_data">Aucune donnee disponible</string>
@@ -106,7 +109,10 @@
 
     <!-- Contact -->
 
-    <string name="contact_model_name">@string/account_notifie_data</string>
+    <string name="contact_title">Mes amis</string>
+    <string name="contact_search_label">Commencer a taper...</string>
+    <string name="contact_delete_alert">Voulez vous vraiment supprimmer cet ami(e)</string>
+    <string name="contact_delete_confirm">Suppression reussit</string>
 
     <!-- Comment publication -->
 

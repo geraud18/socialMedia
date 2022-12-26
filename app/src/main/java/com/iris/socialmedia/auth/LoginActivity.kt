@@ -115,6 +115,7 @@ class LoginActivity : AppCompatActivity() {
                 "",
                 "",
                 "",
+                "",
                 ""
             )
             dataBaseReferenceUser.child(firebaseUser.uid).setValue(user)

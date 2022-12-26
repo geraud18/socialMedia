@@ -23,6 +23,7 @@ import com.iris.socialmedia.auth.LoginActivity
 import com.iris.socialmedia.methodes.Helpers
 import com.iris.socialmedia.repository.ContactRepository
 import com.iris.socialmedia.repository.ContactRepository.Singleton.numberNotification
+import com.iris.socialmedia.repository.UserRepository
 import com.iris.socialmedia.repository.UserRepository.Singleton.firebaseAuth
 import com.iris.socialmedia.repository.UserRepository.Singleton.id_current_user
 import java.lang.String
@@ -170,11 +171,15 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun logoutUser() {
-        firebaseAuth = FirebaseAuth.getInstance()
-        firebaseAuth.signOut()
-        val loginActivity = Intent(this, LoginActivity::class.java)
-        startActivity(loginActivity)
-        finish()
+        val repoUser = UserRepository()
+        repoUser.logoutDataUser{
+            firebaseAuth = FirebaseAuth.getInstance()
+            firebaseAuth.signOut()
+            val loginActivity = Intent(this, LoginActivity::class.java)
+            startActivity(loginActivity)
+            Toast.makeText(this,getString(R.string.app_logout),Toast.LENGTH_SHORT).show()
+            finish()
+        }
     }
 
     private fun getPublicationPage() {

@@ -143,10 +143,10 @@ class TimeLineAdapter(
             val hours: Long = minutes / 60
             val days: Long = hours / 24
           //  val mDayDifference = "${} ${getMinutes(minutes)}"
-            if(days > 1){
+            if(days >= 1){
                 holder.timeLineTimeAdd?.text = context.getString(R.string.time_line_time_add)+" "+days.toString()+" "+context.getString(R.string.time_line_date_add)
             }else{
-                if(hours >= 1 || hours <= 24){
+                if(hours >= 1){
                     holder.timeLineTimeAdd?.text = context.getString(R.string.time_line_time_add)+" "+hours.toString()+" "+context.getString(R.string.time_line_date_hours)
                 }else{
                     if(minutes >= 1 || minutes <= 60){

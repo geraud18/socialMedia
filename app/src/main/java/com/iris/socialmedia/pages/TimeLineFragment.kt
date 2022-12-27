@@ -84,7 +84,7 @@ class TimeLineFragment(
                         }
                     }
                 }
-            },1000)
+            },500)
             swipeRefreshLayout.isRefreshing = false
         }
 

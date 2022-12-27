@@ -8,16 +8,5 @@
     app:cardCornerRadius="4dp"
     android:layout_margin="2dp"
     app:cardBackgroundColor="@color/white">
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/publication_image"
-            android:layout_width="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_height="150dp"
-            android:scaleType="fitXY"
-            tools:ignore="Suspicious0dp" />
 
-    </RelativeLayout>
 </androidx.cardview.widget.CardView>

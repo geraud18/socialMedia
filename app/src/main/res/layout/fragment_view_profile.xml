@@ -81,6 +81,17 @@
                     app:layout_constraintBottom_toTopOf="@+id/view_separation"
                     app:layout_constraintStart_toEndOf="@+id/container_image_profile"/>
 
+                <ImageView
+                    android:id="@+id/view_profile_check_online"
+                    style="@style/DefaultTextStyle"
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_circle"
+                    android:layout_marginLeft="3dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@+id/view_separation"
+                    app:layout_constraintStart_toEndOf="@+id/view_profile_username" />
+
 
                 <LinearLayout
                     android:id="@+id/container_num_post_and_friend"

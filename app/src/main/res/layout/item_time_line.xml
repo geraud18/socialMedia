@@ -44,7 +44,6 @@
             style="@style/DefaultTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/time_line_username"
             android:textColor="@color/black"
             android:textSize="15dp"
             android:layout_marginLeft="12dp"
@@ -76,9 +75,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="35dp"
-                android:text="@string/account_num_post"
                 android:textSize="10dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/figma_color_nav_border" />
 
         </LinearLayout>
 
@@ -109,7 +107,6 @@
             android:id="@+id/time_line_favorite_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/account_num_post"
             android:textColor="@color/figma_color_nav_border"
             style="@style/DefaultTextStyle"
             android:layout_marginLeft="2dp"
@@ -134,7 +131,6 @@
             android:id="@+id/time_line_comment_number"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="@string/account_num_post"
             android:textColor="@color/figma_color_nav_border"
             style="@style/DefaultTextStyle"
             android:textSize="12dp"

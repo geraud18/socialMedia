@@ -22,12 +22,32 @@
         style="@style/DefaultTextStyle"
         app:queryHint="@string/contact_search_label" />
 
-    <androidx.recyclerview.widget.RecyclerView
+
+    <ProgressBar
+        android:id="@+id/search_progressbar_load_data"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/figma_first_color"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_publication_list" />
+
+
+    <GridView
         android:id="@+id/search_publication_list"
+        android:numColumns="3"
+        android:visibility="visible"
+        android:background="@drawable/grid_item_corner"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="665dp"
-        android:layout_marginTop="20dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:horizontalSpacing="2dp"
+        android:verticalSpacing="2dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/search_publication"/>
 
 

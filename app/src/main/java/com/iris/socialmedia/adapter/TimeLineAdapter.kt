@@ -75,7 +75,6 @@ class TimeLineAdapter(
         val repoPublication = PublicationRepository()
         val repoEtat = EtatRepository()
 
-
         if(currentPublication.data != ""){
             Glide.with(context)
                 .load(Uri.parse(currentPublication.data))
@@ -83,8 +82,8 @@ class TimeLineAdapter(
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.timeLineData)
         }
-
         repoPublication.getDataUser(currentPublication.id_users){
+
             if(publicationDataUser.name == "" && publicationDataUser.firstname == ""){
                 holder.timeLineUsername?.text = "${publicationDataUser.username}"
             }
@@ -98,139 +97,139 @@ class TimeLineAdapter(
                     helpers.updateCircleImage(profileImage)
                 }
             }
-        }
 
-        repoEtat.countDataFavoriteUser(currentPublication.id,id_current_user!!){
-            if(etatUserFavorite){
-                holder.timeLineFavorite.setColorFilter(context.resources.getColor(R.color.figma_color_error))
-            }else{
-                holder.timeLineFavorite.setColorFilter(context.resources.getColor(R.color.black))
-            }
-        }
-
-        repoEtat.countDataFavoriteComment(currentPublication.id){
-            holder.timeLineFavoriteNumber?.text = countFavorite.toString()
-            holder.timeLineCommentNumber?.text = countComment.toString()
-        }
-
-      //  Glide.with(context).load(Uri.parse(currentPublication.data)).into(holder.timeLineData)
-
-        if(currentPublication.title?.isNotEmpty() == true){
-            holder.timeLineTitle?.text = currentPublication.title
-        }else{
-            holder.timeLineTitle?.visibility = View.GONE
-        }
-
-        if(currentPublication.description?.isNotEmpty() == true){
-            holder.timeLineDescription?.text = currentPublication.description
-        }else{
-            holder.timeLineDescription?.visibility = View.GONE
-        }
-
-        val time1 = Calendar.getInstance().time
-
-        if(currentPublication.date != ""){
-            val mDate2 = SimpleDateFormat("yyyy-MM-dd HH:mm").parse(currentPublication.date)
-
-            val date = Date()
-            val current = SimpleDateFormat("yyyy-MM-dd HH:mm").format(date)
-            val mDate11 = SimpleDateFormat("yyyy-MM-dd HH:mm").parse(current)
-            val mDifference: Long = mDate11.time - mDate2.time
-
-          //  val mDifferenceDates: Long = mDifference / (24 * 60 * 60 * 1000)
-            val seconds: Long = mDifference / 1000
-            val minutes: Long = seconds / 60
-            val hours: Long = minutes / 60
-            val days: Long = hours / 24
-          //  val mDayDifference = "${} ${getMinutes(minutes)}"
-            if(days >= 1){
-                holder.timeLineTimeAdd?.text = context.getString(R.string.time_line_time_add)+" "+days.toString()+" "+context.getString(R.string.time_line_date_add)
-            }else{
-                if(hours >= 1){
-                    holder.timeLineTimeAdd?.text = context.getString(R.string.time_line_time_add)+" "+hours.toString()+" "+context.getString(R.string.time_line_date_hours)
+            repoEtat.countDataFavoriteUser(currentPublication.id,id_current_user!!){
+                if(etatUserFavorite){
+                    holder.timeLineFavorite.setColorFilter(context.resources.getColor(R.color.figma_color_error))
                 }else{
-                    if(minutes >= 1 || minutes <= 60){
-                        holder.timeLineTimeAdd?.text = context.getString(R.string.time_line_time_add)+" "+minutes.toString()+" "+context.getString(R.string.time_line_date_minutes)
-                    }else{
-                        holder.timeLineTimeAdd?.text = context.getString(R.string.time_line_time_add)+" "+seconds.toString()+" "+context.getString(R.string.time_line_date_secondes)
-                    }
+                    holder.timeLineFavorite.setColorFilter(context.resources.getColor(R.color.black))
                 }
             }
-            holder.timeLineTimeAdd?.visibility = View.VISIBLE
-        }
 
-        holder.timeLineDate?.text = currentPublication.date
+            repoEtat.countDataFavoriteComment(currentPublication.id){
+                holder.timeLineFavoriteNumber?.text = countFavorite.toString()
+                holder.timeLineCommentNumber?.text = countComment.toString()
+            }
 
-        holder.timeLineFavorite.setOnClickListener {
+            //  Glide.with(context).load(Uri.parse(currentPublication.data)).into(holder.timeLineData)
 
-            repoEtat.countDataFavoriteUserExist(currentPublication.id,id_current_user!!){
-                if(etatUserFavoriteExist){
-                    repoEtat.countDataFavoriteUser(currentPublication.id,id_current_user!!) {
-                        if (etatUserFavorite) {
-                            repoEtat.saveEtatFavoriteUserLike(currentPublication.id,id_current_user!!){
-                                repoEtat.countDataFavoriteComment(currentPublication.id){
-                                    holder.timeLineFavoriteNumber?.text = countFavorite.toString()
-                                    holder.timeLineFavorite.setColorFilter(context.resources.getColor(R.color.black))
+            if(currentPublication.title?.isNotEmpty() == true){
+                holder.timeLineTitle?.text = currentPublication.title
+            }else{
+                holder.timeLineTitle?.visibility = View.GONE
+            }
+
+            if(currentPublication.description?.isNotEmpty() == true){
+                holder.timeLineDescription?.text = currentPublication.description
+            }else{
+                holder.timeLineDescription?.visibility = View.GONE
+            }
+
+            val time1 = Calendar.getInstance().time
+
+            if(currentPublication.date != ""){
+                val mDate2 = SimpleDateFormat("yyyy-MM-dd HH:mm").parse(currentPublication.date)
+
+                val date = Date()
+                val current = SimpleDateFormat("yyyy-MM-dd HH:mm").format(date)
+                val mDate11 = SimpleDateFormat("yyyy-MM-dd HH:mm").parse(current)
+                val mDifference: Long = mDate11.time - mDate2.time
+
+                //  val mDifferenceDates: Long = mDifference / (24 * 60 * 60 * 1000)
+                val seconds: Long = mDifference / 1000
+                val minutes: Long = seconds / 60
+                val hours: Long = minutes / 60
+                val days: Long = hours / 24
+                //  val mDayDifference = "${} ${getMinutes(minutes)}"
+                if(days >= 1){
+                    holder.timeLineTimeAdd?.text = context.getString(R.string.time_line_time_add)+" "+days.toString()+" "+context.getString(R.string.time_line_date_add)
+                }else{
+                    if(hours >= 1){
+                        holder.timeLineTimeAdd?.text = context.getString(R.string.time_line_time_add)+" "+hours.toString()+" "+context.getString(R.string.time_line_date_hours)
+                    }else{
+                        if(minutes >= 1 || minutes <= 60){
+                            holder.timeLineTimeAdd?.text = context.getString(R.string.time_line_time_add)+" "+minutes.toString()+" "+context.getString(R.string.time_line_date_minutes)
+                        }else{
+                            holder.timeLineTimeAdd?.text = context.getString(R.string.time_line_time_add)+" "+seconds.toString()+" "+context.getString(R.string.time_line_date_secondes)
+                        }
+                    }
+                }
+                holder.timeLineTimeAdd?.visibility = View.VISIBLE
+            }
+
+            holder.timeLineDate?.text = currentPublication.date
+
+            holder.timeLineFavorite.setOnClickListener {
+
+                repoEtat.countDataFavoriteUserExist(currentPublication.id,id_current_user!!){
+                    if(etatUserFavoriteExist){
+                        repoEtat.countDataFavoriteUser(currentPublication.id,id_current_user!!) {
+                            if (etatUserFavorite) {
+                                repoEtat.saveEtatFavoriteUserLike(currentPublication.id,id_current_user!!){
+                                    repoEtat.countDataFavoriteComment(currentPublication.id){
+                                        holder.timeLineFavoriteNumber?.text = countFavorite.toString()
+                                        holder.timeLineFavorite.setColorFilter(context.resources.getColor(R.color.black))
+                                    }
                                 }
-                            }
-                        } else {
-                            repoEtat.saveEtatFavoriteUserUnLike(currentPublication.id,id_current_user!!){
-                                repoEtat.countDataFavoriteComment(currentPublication.id){
-                                    holder.timeLineFavoriteNumber?.text = countFavorite.toString()
-                                    holder.timeLineFavorite.setColorFilter(context.resources.getColor(R.color.figma_color_error))
+                            } else {
+                                repoEtat.saveEtatFavoriteUserUnLike(currentPublication.id,id_current_user!!){
+                                    repoEtat.countDataFavoriteComment(currentPublication.id){
+                                        holder.timeLineFavoriteNumber?.text = countFavorite.toString()
+                                        holder.timeLineFavorite.setColorFilter(context.resources.getColor(R.color.figma_color_error))
+                                    }
                                 }
                             }
                         }
-                    }
-                }else{
-                    etatData.id = UUID.randomUUID().toString()
-                    etatData.publication_id = currentPublication.id
-                    etatData.user_id = id_current_user!!
-                    etatData.type = "favorite"
-                    etatData.content = "like"
-                    etatData.exist = "oui"
+                    }else{
+                        etatData.id = UUID.randomUUID().toString()
+                        etatData.publication_id = currentPublication.id
+                        etatData.user_id = id_current_user!!
+                        etatData.type = "favorite"
+                        etatData.content = "like"
+                        etatData.exist = "oui"
 
-                    val time = Calendar.getInstance().time
-                    val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm")
-                    val currentTime = formatter.format(time)
-                    etatData.date = currentTime
+                        val time = Calendar.getInstance().time
+                        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm")
+                        val currentTime = formatter.format(time)
+                        etatData.date = currentTime
 
-                    repoEtat.saveEtatFavoriteUser(etatData)
-                    repoEtat.countDataFavoriteComment(currentPublication.id){
-                        holder.timeLineFavoriteNumber?.text = countFavorite.toString()
-                        holder.timeLineFavorite.setColorFilter(context.resources.getColor(R.color.figma_color_error))
+                        repoEtat.saveEtatFavoriteUser(etatData)
+                        repoEtat.countDataFavoriteComment(currentPublication.id){
+                            holder.timeLineFavoriteNumber?.text = countFavorite.toString()
+                            holder.timeLineFavorite.setColorFilter(context.resources.getColor(R.color.figma_color_error))
+                        }
                     }
                 }
             }
-        }
 
-        holder.timeLineMoreOption.setOnClickListener {
-            val dialog = BottomSheetDialog(context)
-            dialog.setContentView(R.layout.popup_option_item)
-            dialog.show()
-        }
+            holder.timeLineMoreOption.setOnClickListener {
+                val dialog = BottomSheetDialog(context)
+                dialog.setContentView(R.layout.popup_option_item)
+                dialog.show()
+            }
 
-        holder.timeLineComment.setOnClickListener {
+            holder.timeLineComment.setOnClickListener {
 
-            val bundle = Bundle()
-            bundle.putString("publication_id", currentPublication.id)
+                val bundle = Bundle()
+                bundle.putString("publication_id", currentPublication.id)
 
-            val commentFragment: Fragment = CommentFragment(context)
-            commentFragment.arguments = bundle
-            val fragmentManager: FragmentManager = context.supportFragmentManager
-            val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_down, R.anim.slide_up, R.anim.slide_down)
-            fragmentTransaction.replace(R.id.homme_activity, commentFragment)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
-        }
+                val commentFragment: Fragment = CommentFragment(context)
+                commentFragment.arguments = bundle
+                val fragmentManager: FragmentManager = context.supportFragmentManager
+                val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+                fragmentTransaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_down, R.anim.slide_up, R.anim.slide_down)
+                fragmentTransaction.replace(R.id.homme_activity, commentFragment)
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
+            }
 
-        holder.timeLineUserImage.setOnClickListener {
-            helpers.viewProfile(context,currentPublication.id_users)
-        }
+            holder.timeLineUserImage.setOnClickListener {
+                helpers.viewProfile(context,currentPublication.id_users)
+            }
 
-        holder.timeLineUsername?.setOnClickListener {
-            helpers.viewProfile(context,currentPublication.id_users)
+            holder.timeLineUsername?.setOnClickListener {
+                helpers.viewProfile(context,currentPublication.id_users)
+            }
         }
 
     }

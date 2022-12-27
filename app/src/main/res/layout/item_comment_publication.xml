@@ -7,65 +7,81 @@
     android:paddingBottom="7dp"
     android:background="@drawable/border_top_nav_bar_comment">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/container_image_profile_comment_publication"
-        android:layout_width="53dp"
-        android:layout_height="53dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        app:cardCornerRadius="50dp"
+    <LinearLayout
+        android:id="@+id/container_bloc_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/comment_plublication_user_image"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_account"
-            android:transitionName="small_image" />
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content">
 
-    </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/container_image_profile_comment_publication"
+                android:layout_width="53dp"
+                android:layout_height="53dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    <View
-        android:id="@+id/comment_plublication_separation"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_marginTop="9dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/container_image_profile_comment_publication"
-        app:layout_constraintTop_toTopOf="@+id/container_image_profile_comment_publication"
-        tools:ignore="MissingConstraints" />
+                <ImageView
+                    android:id="@+id/comment_plublication_user_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_account"
+                    android:transitionName="small_image" />
 
-    <TextView
-        android:id="@+id/comment_plublication_username"
-        style="@style/DefaultTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/comment_plublication_username"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        android:layout_marginLeft="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/comment_plublication_separation"
-        app:layout_constraintStart_toEndOf="@+id/container_image_profile_comment_publication"/>
+            </androidx.cardview.widget.CardView>
 
-    <LinearLayout
-        android:id="@+id/container_value_publication"
-        android:layout_width="325dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/comment_plublication_username"
-        app:layout_constraintTop_toBottomOf="@+id/comment_plublication_separation">
+            <View
+                android:id="@+id/comment_plublication_separation"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="9dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/container_image_profile_comment_publication"
+                app:layout_constraintTop_toTopOf="@+id/container_image_profile_comment_publication"
+                tools:ignore="MissingConstraints" />
 
-        <TextView
-            android:id="@+id/comment_plublication_value"
-            style="@style/DefaultTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:justificationMode="inter_word"
-            android:text="@string/comment_plublication_value"
-            android:textColor="@color/black"
-            android:textSize="10dp"/>
+            <TextView
+                android:id="@+id/comment_plublication_username"
+                style="@style/DefaultTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:layout_marginLeft="12dp"
+                app:layout_constraintBottom_toTopOf="@+id/comment_plublication_separation"
+                app:layout_constraintStart_toEndOf="@+id/container_image_profile_comment_publication"/>
+
+            <LinearLayout
+                android:id="@+id/container_value_publication"
+                android:layout_width="325dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/comment_plublication_username"
+                app:layout_constraintTop_toBottomOf="@+id/comment_plublication_separation">
+
+                <TextView
+                    android:id="@+id/comment_plublication_value"
+                    style="@style/DefaultTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
+                    android:textColor="@color/black"
+                    android:textSize="10dp"/>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

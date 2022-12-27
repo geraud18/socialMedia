@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -38,7 +39,6 @@ class CommentAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         val currentComment = etatListComment[position]
         val repoPublication = PublicationRepository()
 
@@ -56,9 +56,8 @@ class CommentAdapter(
                     helpers.updateCircleImage(profileImage)
                 }
             }
+            holder.commentValue?.text = currentComment.content
         }
-
-        holder.commentValue?.text = currentComment.content
     }
 
     override fun getItemCount(): Int = etatListComment.size

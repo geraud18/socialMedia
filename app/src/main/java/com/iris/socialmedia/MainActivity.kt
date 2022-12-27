@@ -7,12 +7,14 @@ import android.os.Handler
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.iris.socialmedia.adapter.MessageAdapter
 import com.iris.socialmedia.auth.LoginActivity
 import com.iris.socialmedia.auth.RegisterActivity
 import com.iris.socialmedia.methodes.Helpers
 import com.iris.socialmedia.methodes.LoadingDialog
 import com.iris.socialmedia.pages.HomeActivity
 import com.iris.socialmedia.repository.ContactRepository
+import com.iris.socialmedia.repository.MessageRepository
 import com.iris.socialmedia.repository.PublicationRepository
 import com.iris.socialmedia.repository.UserRepository
 import com.iris.socialmedia.repository.UserRepository.Singleton.firebaseAuth
@@ -27,7 +29,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        startFirstPage()
+        var handler = Handler()
+        handler.postDelayed(object :Runnable{
+            override fun run(){
+                startFirstPage()
+            }
+        },1000)
     }
 
 

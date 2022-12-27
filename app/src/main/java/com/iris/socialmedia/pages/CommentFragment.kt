@@ -81,7 +81,7 @@ class CommentFragment(
                 etatData.exist = "oui"
 
                 val time = Calendar.getInstance().time
-                val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm")
+                val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
                 val currentTime = formatter.format(time)
                 etatData.date = currentTime
 

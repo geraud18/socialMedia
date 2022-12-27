@@ -50,7 +50,6 @@ class ContactAdapter(
         val currentContact = contactList[position]
         val repoPublication = PublicationRepository()
         val repoContact = ContactRepository()
-
         repoPublication.getDataUser(currentContact.guest_id){
             if(publicationDataUser.name == "" && publicationDataUser.firstname == ""){
                 holder.contactName?.text = "${publicationDataUser.username}"
@@ -65,55 +64,50 @@ class ContactAdapter(
                     helpers.updateCircleImage(profileImage)
                 }
             }
-        }
 
-        holder.contactChat.setOnClickListener {
+            holder.contactChat.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putString("receive_id", currentContact.guest_id)
 
-            val bundle = Bundle()
-            bundle.putString("receive_id", currentContact.guest_id)
+                val messageFragment: Fragment = MessageFragment(context)
+                messageFragment.arguments = bundle
 
-            val messageFragment: Fragment = MessageFragment(context)
-            messageFragment.arguments = bundle
+                val fragmentManager: FragmentManager = context.supportFragmentManager
+                val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+                fragmentTransaction.setCustomAnimations(R.anim.slide_right, R.anim.slide_left,R.anim.slide_right, R.anim.slide_left)
+                fragmentTransaction.replace(R.id.homme_activity, messageFragment)
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
+            }
 
-            val fragmentManager: FragmentManager = context.supportFragmentManager
-            val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.setCustomAnimations(R.anim.slide_right, R.anim.slide_left,R.anim.slide_right, R.anim.slide_left)
-            fragmentTransaction.replace(R.id.homme_activity, messageFragment)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
-        }
+            holder.contactDelete.setOnClickListener {
+                val dialog = BottomSheetDialog(context)
+                dialog.setContentView(R.layout.popup_option_delete_contact)
+                // dialog.setCancelable(false)
+                val imageProfileUser = dialog.findViewById<ImageView>(R.id.contact_image_delete)
+                val contactConfirmDelete = dialog.findViewById<ImageView>(R.id.contact_confirm_delete)
+                val contactCancelDelete = dialog.findViewById<ImageView>(R.id.contact_cancel_delete)
 
-        holder.contactDelete.setOnClickListener {
-            val dialog = BottomSheetDialog(context)
-            dialog.setContentView(R.layout.popup_option_delete_contact)
-           // dialog.setCancelable(false)
-
-            val imageProfileUser = dialog.findViewById<ImageView>(R.id.contact_image_delete)
-            val contactConfirmDelete = dialog.findViewById<ImageView>(R.id.contact_confirm_delete)
-            val contactCancelDelete = dialog.findViewById<ImageView>(R.id.contact_cancel_delete)
-
-            repoPublication.getDataUser(currentContact.guest_id){
-                if(publicationDataUser.profile?.isNotEmpty() == true){
-                    if (imageProfileUser != null) {
-                        Glide.with(context).load(Uri.parse(publicationDataUser.profile)).into(imageProfileUser)
-                        helpers.updateCircleImage(imageProfileUser)
+                repoPublication.getDataUser(currentContact.guest_id){
+                    if(publicationDataUser.profile?.isNotEmpty() == true){
+                        if (imageProfileUser != null) {
+                            Glide.with(context).load(Uri.parse(publicationDataUser.profile)).into(imageProfileUser)
+                            helpers.updateCircleImage(imageProfileUser)
+                        }
                     }
+                    contactConfirmDelete?.setOnClickListener {
+                        repoContact.deleteContact(currentContact)
+                        dialog.dismiss()
+                        contactList.removeAt(position)
+                        this.notifyItemRemoved(position)
+                        Toast.makeText(context,context.getString(R.string.contact_delete_confirm), Toast.LENGTH_SHORT).show()
+                    }
+                    contactCancelDelete?.setOnClickListener { dialog.dismiss() }
+                    dialog.show()
                 }
             }
 
-            contactConfirmDelete?.setOnClickListener {
-                repoContact.deleteContact(currentContact)
-                dialog.dismiss()
-                contactList.removeAt(position)
-                this.notifyItemRemoved(position)
-                Toast.makeText(context,context.getString(R.string.contact_delete_confirm), Toast.LENGTH_SHORT).show()
-            }
-
-            contactCancelDelete?.setOnClickListener { dialog.dismiss() }
-
-            dialog.show()
         }
-
     }
 
     override fun getItemCount(): Int = contactList.size

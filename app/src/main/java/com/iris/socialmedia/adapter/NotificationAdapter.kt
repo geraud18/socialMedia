@@ -99,10 +99,9 @@ class NotificationAdapter(
             val imageProfileUser = dialog.findViewById<ImageView>(R.id.notification_image)
             val notificationRemove = dialog.findViewById<ImageView>(R.id.notification_remove)
             val notificationAccept = dialog.findViewById<ImageView>(R.id.notification_accept)
-            var usernameFirst: String? = ""
-            var usernameGuest: String? = ""
 
             repoPublication.getDataUser(currentNotification.guest_id){
+                var usernameGuest: String? = ""
                 if(publicationDataUser.profile?.isNotEmpty() == true){
                     if(publicationDataUser.name == "" && publicationDataUser.firstname == ""){
                         usernameGuest = "${publicationDataUser.username}"
@@ -115,52 +114,53 @@ class NotificationAdapter(
                         helpers.updateCircleImage(imageProfileUser)
                     }
                 }
-            }
 
-            repoPublication.getDataUser(currentNotification.user_id){
-                if(publicationDataUser.profile?.isNotEmpty() == true){
-                    if(publicationDataUser.name == "" && publicationDataUser.firstname == ""){
-                        usernameFirst = "${publicationDataUser.username}"
-                    }
-                    else{
-                        usernameFirst = "${publicationDataUser.name}  ${publicationDataUser.firstname}"
-                    }
-                }
-            }
-
-            notificationRemove?.setOnClickListener {
-                repoContact.deleteContact(currentNotification)
-                dialog.dismiss()
-                notificationList.removeAt(position)
-                this.notifyItemRemoved(position)
-                context.invalidateMenu()
-            }
-
-            notificationAccept?.setOnClickListener {
-                repoContact.acceptContact(currentNotification.user_id,currentNotification.guest_id,usernameGuest!!){
+                notificationRemove?.setOnClickListener {
+                    repoContact.deleteContact(currentNotification)
                     dialog.dismiss()
-
-                    contactData.id = UUID.randomUUID().toString()
-                    contactData.user_id = currentNotification.guest_id
-                    contactData.guest_id = currentNotification.user_id
-                    contactData.decision = "accpeter"
-                    contactData.user_name_guest = usernameFirst!!
-
-                    val time = Calendar.getInstance().time
-                    val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm")
-                    val currentTime = formatter.format(time)
-                    contactData.date = currentTime
-
-                    repoContact.saveContact(contactData)
-
                     notificationList.removeAt(position)
                     this.notifyItemRemoved(position)
                     context.invalidateMenu()
-                    Toast.makeText(context,context.getString(R.string.account_user_invitation_accept),Toast.LENGTH_SHORT).show()
                 }
-            }
 
-            dialog.show()
+                notificationAccept?.setOnClickListener {
+                    repoContact.acceptContact(currentNotification.user_id,currentNotification.guest_id,usernameGuest!!){
+                        repoPublication.getDataUser(currentNotification.user_id){
+                            var usernameFirst: String? = ""
+                            if(publicationDataUser.profile?.isNotEmpty() == true){
+                                if(publicationDataUser.name == "" && publicationDataUser.firstname == ""){
+                                    usernameFirst = "${publicationDataUser.username}"
+                                }
+                                else{
+                                    usernameFirst = "${publicationDataUser.name}  ${publicationDataUser.firstname}"
+                                }
+                            }
+
+                            dialog.dismiss()
+
+                            contactData.id = UUID.randomUUID().toString()
+                            contactData.user_id = currentNotification.guest_id
+                            contactData.guest_id = currentNotification.user_id
+                            contactData.decision = "accpeter"
+                            contactData.user_name_guest = usernameFirst!!
+
+                            val time = Calendar.getInstance().time
+                            val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm")
+                            val currentTime = formatter.format(time)
+                            contactData.date = currentTime
+
+                            repoContact.saveContact(contactData)
+
+                            notificationList.removeAt(position)
+                            this.notifyItemRemoved(position)
+                            context.invalidateMenu()
+                            Toast.makeText(context,context.getString(R.string.account_user_invitation_accept),Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+                }
+                dialog.show()
+            }
         }
     }
 

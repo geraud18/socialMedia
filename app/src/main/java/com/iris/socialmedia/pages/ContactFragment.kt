@@ -53,7 +53,7 @@ class ContactFragment(
                     }
                 }
             }
-        },500)
+        },400)
 
         contactSearch?.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(p0: String?): Boolean {
@@ -78,7 +78,6 @@ class ContactFragment(
                 contactAdapter =  ContactAdapter(context, searchContactList,R.layout.item_contact)
                 listContactRecycleView?.adapter = contactAdapter
                 contactAdapter.notifyDataSetChanged()
-               // listContactRecycleView?.invalidate()
             }
         }
     }

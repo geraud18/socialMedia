@@ -77,12 +77,24 @@ class MessageFragment(
                     helpers.updateCircleImage(receiveUserImage)
                 }
             }
+            val imageCheckOnline = viewFragmentMessage?.findViewById<ImageView>(R.id.message_receive_check_online)
+            val textCheckOnline = viewFragmentMessage?.findViewById<TextView>(R.id.message_receive_check_online_label)
+            if(publicationDataUser.connect == "true"){
+                imageCheckOnline?.setColorFilter(context.resources.getColor(R.color.figma_color_success))
+                imageCheckOnline?.visibility = View.VISIBLE
+                textCheckOnline?.text = context.getString(R.string.login_check_user_connect_true)
+                textCheckOnline?.visibility = View.VISIBLE
+            }else{
+                imageCheckOnline?.setColorFilter(context.resources.getColor(R.color.figma_color_account_profile2))
+                imageCheckOnline?.visibility = View.VISIBLE
+                textCheckOnline?.text = context.getString(R.string.login_check_user_connect_false)
+                textCheckOnline?.visibility = View.VISIBLE
+            }
         }
 
         var handler = Handler()
         handler.postDelayed(object :Runnable{
             override fun run(){
-
                 repoMessage.messageListUser(sendMessageId) {
                     if(messageList.size > 0){
                         messageList.sortBy { it.date }

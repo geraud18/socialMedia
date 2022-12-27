@@ -156,13 +156,13 @@
             android:paddingTop="11dp"
             android:textColor="@color/black"
             android:textSize="10dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:textAlignment="center"
             android:background="@drawable/bg_not_rounded"
             android:text="@string/account_post_label"
             style="@style/DefaultTextStyle"/>
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/account_statut_label"
             android:layout_width="0dp"
             android:layout_height="@dimen/default_height_input"
@@ -173,7 +173,7 @@
             android:textAlignment="center"
             android:background="@drawable/bg_not_rounded"
             android:layout_weight="1"
-            android:fontFamily="@font/roboto"/>
+            android:fontFamily="@font/roboto"/>-->
 
     </LinearLayout>
 

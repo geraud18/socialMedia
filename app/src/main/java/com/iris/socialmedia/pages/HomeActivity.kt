@@ -17,6 +17,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
+import com.iris.socialmedia.MainActivity
 import com.iris.socialmedia.R
 import com.iris.socialmedia.adapter.PagesAdapter
 import com.iris.socialmedia.auth.LoginActivity
@@ -175,7 +176,7 @@ class HomeActivity : AppCompatActivity() {
         repoUser.logoutDataUser{
             firebaseAuth = FirebaseAuth.getInstance()
             firebaseAuth.signOut()
-            val loginActivity = Intent(this, LoginActivity::class.java)
+            val loginActivity = Intent(this, MainActivity::class.java)
             startActivity(loginActivity)
             Toast.makeText(this,getString(R.string.app_logout),Toast.LENGTH_SHORT).show()
             finish()

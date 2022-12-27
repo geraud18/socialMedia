@@ -117,6 +117,14 @@ class ViewProfileFragment(
                     helpers.updateCircleImage(profileImage)
                 }
             }
+            val imageCheckOnline = viewFragmentProfile?.findViewById<ImageView>(R.id.view_profile_check_online)
+            if(publicationDataUser.connect == "true"){
+                imageCheckOnline?.setColorFilter(context.resources.getColor(R.color.figma_color_success))
+                imageCheckOnline?.visibility = View.VISIBLE
+            }else{
+                imageCheckOnline?.setColorFilter(context.resources.getColor(R.color.figma_color_account_profile2))
+                imageCheckOnline?.visibility = View.VISIBLE
+            }
         }
 
         viewFragmentProfile?.findViewById<ProgressBar>(R.id.view_profile_progressbar_load_data)?.visibility = View.VISIBLE

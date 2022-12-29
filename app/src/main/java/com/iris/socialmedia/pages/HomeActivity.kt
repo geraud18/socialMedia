@@ -20,15 +20,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.iris.socialmedia.MainActivity
 import com.iris.socialmedia.R
 import com.iris.socialmedia.adapter.PagesAdapter
-import com.iris.socialmedia.auth.LoginActivity
 import com.iris.socialmedia.methodes.Helpers
 import com.iris.socialmedia.repository.ContactRepository
 import com.iris.socialmedia.repository.ContactRepository.Singleton.numberNotification
 import com.iris.socialmedia.repository.UserRepository
 import com.iris.socialmedia.repository.UserRepository.Singleton.firebaseAuth
 import com.iris.socialmedia.repository.UserRepository.Singleton.id_current_user
-import java.lang.String
-import java.util.*
 import kotlin.Boolean
 import kotlin.Int
 
@@ -37,7 +34,7 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager2
-    var menu_add : Boolean = true
+    var menu_top = ""
 
     var textCartItemCount: TextView? = null
     val helpers = Helpers()
@@ -75,27 +72,27 @@ class HomeActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
 
                 if (position == 0) {
-                    menu_add = true
+                    menu_top = "home"
                     invalidateOptionsMenu()
                 }
                 else if (position == 1) {
-                    menu_add = true
+                    menu_top = "search"
                     invalidateOptionsMenu()
                 }
                 else if (position == 2) {
-                    menu_add = true
+                    menu_top = "chats"
                     invalidateOptionsMenu()
                 }
                 else if (position == 3) {
-                    menu_add = true
+                    menu_top = "friends"
                     invalidateOptionsMenu()
                 }
                 else if (position == 4) {
-                    menu_add = false
+                    menu_top = "profile"
                     invalidateOptionsMenu()
                 }
                 else{
-                    menu_add = true
+                    menu_top = "home"
                     invalidateOptionsMenu()
                 }
                 super.onPageSelected(position)
@@ -105,10 +102,12 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
-        if(menu_add){
+        if(menu_top == "home" || menu_top =="search" || menu_top =="friends"){
             menuInflater.inflate(R.menu.action_bar_menu, menu)
-        }else{
+        }else if (menu_top == "profile"){
             menuInflater.inflate(R.menu.action_bar_menu_hide_item, menu)
+        }else if(menu_top == "chats"){
+            menuInflater.inflate(R.menu.action_chat_menu, menu)
         }
 
         val menuItem = menu!!.findItem(R.id.menu_notification)
@@ -153,6 +152,10 @@ class HomeActivity : AppCompatActivity() {
                 getPublicationPage()
                 true
             }
+            R.id.menu_btn_create_chat -> {
+                getCreateChat()
+                true
+            }
             R.id.menu_logout -> {
                 logoutUser()
                 true
@@ -171,6 +174,26 @@ class HomeActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
+    private fun getPublicationPage() {
+        val publicationFragment: Fragment = PublicationFragment(this)
+        val fragmentManager: FragmentManager = supportFragmentManager
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_down, R.anim.slide_up, R.anim.slide_down)
+        fragmentTransaction.replace(R.id.homme_activity, publicationFragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
+    }
+
+    private fun getCreateChat() {
+        val searchUserChatFragment: Fragment = SearchUserChatFragment(this)
+        val fragmentManager: FragmentManager = supportFragmentManager
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.setCustomAnimations(R.anim.slide_right, R.anim.slide_left, R.anim.slide_right, R.anim.slide_left)
+        fragmentTransaction.replace(R.id.homme_activity, searchUserChatFragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
+    }
+
     private fun logoutUser() {
         val repoUser = UserRepository()
         repoUser.logoutDataUser{
@@ -181,16 +204,6 @@ class HomeActivity : AppCompatActivity() {
             Toast.makeText(this,getString(R.string.app_logout),Toast.LENGTH_SHORT).show()
             finish()
         }
-    }
-
-    private fun getPublicationPage() {
-        val publicationFragment: Fragment = PublicationFragment(this)
-        val fragmentManager: FragmentManager = supportFragmentManager
-        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_down, R.anim.slide_up, R.anim.slide_down)
-        fragmentTransaction.replace(R.id.homme_activity, publicationFragment)
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
     }
 
 }

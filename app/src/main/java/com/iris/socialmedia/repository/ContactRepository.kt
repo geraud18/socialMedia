@@ -4,8 +4,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.iris.socialmedia.R
 import com.iris.socialmedia.model.ContactModel
 import com.iris.socialmedia.model.EtatModel
+import com.iris.socialmedia.pages.HomeActivity
 import com.iris.socialmedia.repository.ContactRepository.Singleton.contactList
 import com.iris.socialmedia.repository.ContactRepository.Singleton.contactNotification
 import com.iris.socialmedia.repository.ContactRepository.Singleton.dataBaseReferenceContact
@@ -21,7 +23,7 @@ class ContactRepository {
         val contactList = ArrayList<ContactModel>()
         val searchContactList = ArrayList<ContactModel>()
         val contactNotification = ArrayList<ContactModel>()
-        var etatInvitationSend:Boolean = false
+        var etatInvitationSend:String = ""
         var numberNotification:Int = 0
     }
 
@@ -71,17 +73,19 @@ class ContactRepository {
         })
     }
 
-    fun checkInvitationSend(user_id: String, guest_id : String,callback: () -> Unit) {
+    fun checkInvitationSend(context: HomeActivity, user_id: String, guest_id : String,callback: () -> Unit) {
         dataBaseReferenceContact.addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                etatInvitationSend = false
+                etatInvitationSend = ""
                 for(ds in snapshot.children){
                     val invitation = ds.getValue(ContactModel::class.java)
                     if(invitation != null){
                         if(invitation.id != ""){
-                            if(invitation.user_id == user_id && invitation.guest_id == guest_id){
-                                etatInvitationSend = true
+                            if(invitation.user_id == user_id && invitation.guest_id == guest_id && invitation.decision == "en attentes"){
+                                etatInvitationSend = context.getString(R.string.account_user_invitation)
+                            }else if(invitation.user_id == user_id && invitation.guest_id == guest_id && invitation.decision == "accpeter"){
+                                etatInvitationSend = context.getString(R.string.account_num_friend_label_single)
                             }
                         }
                     }
@@ -120,7 +124,6 @@ class ContactRepository {
         dataBaseReferenceContact.addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                etatInvitationSend = false
                 for(ds in snapshot.children){
                     val invitation = ds.getValue(ContactModel::class.java)
                     if(invitation != null){

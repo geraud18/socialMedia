@@ -13,8 +13,10 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.iris.socialmedia.R
 import com.iris.socialmedia.adapter.ImagePublicationAdapter
+import com.iris.socialmedia.adapter.PublicationAdapter
 import com.iris.socialmedia.adapter.TimeLineAdapter
 import com.iris.socialmedia.methodes.Helpers
+import com.iris.socialmedia.model.PublicationModel
 import com.iris.socialmedia.repository.ContactRepository
 import com.iris.socialmedia.repository.ContactRepository.Singleton.contactData
 import com.iris.socialmedia.repository.ContactRepository.Singleton.etatInvitationSend
@@ -47,9 +49,9 @@ class ViewProfileFragment(
 
         val profileBtnModifierProfil = viewFragmentProfile?.findViewById<Button>(R.id.view_profile_btn_modifier_profil)
 
-        repoContact.checkInvitationSend(idUser.toString(),id_current_user!!){
-            if(etatInvitationSend){
-                profileBtnModifierProfil?.hint = context.getString(R.string.account_user_invitation)
+        repoContact.checkInvitationSend(context,idUser.toString(),id_current_user!!){
+            if(etatInvitationSend != ""){
+                profileBtnModifierProfil?.hint = etatInvitationSend
                 profileBtnModifierProfil?.isEnabled = true
             }
         }
@@ -63,8 +65,8 @@ class ViewProfileFragment(
         }
 
         profileBtnModifierProfil?.setOnClickListener {
-            repoContact.checkInvitationSend(idUser.toString(),id_current_user!!){
-                if(!etatInvitationSend){
+            repoContact.checkInvitationSend(context,idUser.toString(),id_current_user!!){
+                if(etatInvitationSend == ""){
                     var progressBarPublication = viewFragmentProfile?.findViewById<FrameLayout>(R.id.progressbar_invitation)
                     profileBtnModifierProfil?.visibility = View.INVISIBLE
                     progressBarPublication?.visibility = View.VISIBLE
@@ -82,14 +84,11 @@ class ViewProfileFragment(
                     var handler = Handler()
                     handler.postDelayed(object :Runnable{
                         override fun run(){
-                            val repoPublication = PublicationRepository()
-                            repoPublication.initDataPublication {
                                 repoContact.saveContact(contactData)
                                 progressBarPublication?.visibility = View.INVISIBLE
                                 profileBtnModifierProfil?.hint = context.getString(R.string.account_user_invitation)
                                 profileBtnModifierProfil?.visibility = View.VISIBLE
                                 profileBtnModifierProfil?.isEnabled = true
-                            }
                         }
                     },1000)
                 }
@@ -133,12 +132,10 @@ class ViewProfileFragment(
         repoPublication.initDataPublicationImage(idUser.toString()) {
 
             if(publicationListImage.size > 0){
-                publicationImage?.adapter = ImagePublicationAdapter(context, publicationListImage)
+                publicationImage?.adapter = PublicationAdapter(context, publicationListImage)
                 viewFragmentProfile?.findViewById<ProgressBar>(R.id.view_profile_progressbar_load_data)?.visibility = View.GONE
                 publicationImage?.visibility = View.VISIBLE
-                publicationImage?.setOnItemClickListener { adapterView, view, i, l ->
-                    Toast.makeText(context,Uri.parse("test").toString(), Toast.LENGTH_SHORT).show()
-                }
+
             }else{
                 viewFragmentProfile?.findViewById<ProgressBar>(R.id.view_profile_progressbar_load_data)?.visibility = View.GONE
                 publicationImage?.visibility = View.GONE

@@ -20,7 +20,9 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.iris.socialmedia.R
 import com.iris.socialmedia.adapter.ImagePublicationAdapter
+import com.iris.socialmedia.adapter.PublicationAdapter
 import com.iris.socialmedia.methodes.Helpers
+import com.iris.socialmedia.model.PublicationModel
 import com.iris.socialmedia.repository.PublicationRepository
 import com.iris.socialmedia.repository.PublicationRepository.Singleton.publicationList
 import com.iris.socialmedia.repository.PublicationRepository.Singleton.publicationListImage
@@ -145,11 +147,16 @@ class AccountFragment(
             repoPublication.initDataPublicationImage(id_current_user!!) {
 
                 if(publicationListImage.size > 0){
-                    publicationImage?.adapter = ImagePublicationAdapter(context,publicationListImage)
+                    publicationImage?.adapter = PublicationAdapter(context,publicationListImage)
                     viewFragmentAccount?.findViewById<ProgressBar>(R.id.progressbar_load_data)?.visibility = View.GONE
                     publicationImage?.visibility = View.VISIBLE
                     publicationImage?.setOnItemClickListener { adapterView, view, i, l ->
-                        Toast.makeText(context,Uri.parse("test").toString(),Toast.LENGTH_SHORT).show()
+
+                        val imagesClick: ArrayList<PublicationModel?> = publicationListImage
+                        var currentP = imagesClick[i]
+
+                        helpers.getListTimeLineUser(context,currentP?.id_users)
+
                     }
                 }else{
                     viewFragmentAccount?.findViewById<ProgressBar>(R.id.progressbar_load_data)?.visibility = View.GONE

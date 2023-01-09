@@ -12,11 +12,16 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.iris.socialmedia.R
 import com.iris.socialmedia.adapter.ContactAdapter
 import com.iris.socialmedia.adapter.ImagePublicationAdapter
+import com.iris.socialmedia.adapter.PublicationAdapter
+import com.iris.socialmedia.methodes.Helpers
+import com.iris.socialmedia.model.PublicationModel
 import com.iris.socialmedia.repository.ContactRepository
 import com.iris.socialmedia.repository.PublicationRepository
 import com.iris.socialmedia.repository.PublicationRepository.Singleton.publicationListImage
@@ -31,8 +36,8 @@ class SearchFragment(
 
     private var contactSearch: SearchView? = null
     private var publicationImage: GridView? = null
-    private lateinit var adapterImage: ImagePublicationAdapter
-
+    private lateinit var adapterImage: PublicationAdapter
+    val helpers = Helpers()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -50,14 +55,19 @@ class SearchFragment(
         contactSearch = viewFragmentSearch?.findViewById(R.id.search_publication)
 
         val repoPublication = PublicationRepository()
-        repoPublication.AllDataPublicationImage{
+        repoPublication.initDataPublicationImage(null){
             if(publicationListImage.size > 0){
-                adapterImage = ImagePublicationAdapter(context, publicationListImage)
+                adapterImage = PublicationAdapter(context, publicationListImage)
                 publicationImage?.adapter = adapterImage
                 viewFragmentSearch?.findViewById<ProgressBar>(R.id.search_progressbar_load_data)?.visibility = View.GONE
                 publicationImage?.visibility = View.VISIBLE
                 publicationImage?.setOnItemClickListener { adapterView, view, i, l ->
-                    Toast.makeText(context, Uri.parse("test").toString(), Toast.LENGTH_SHORT).show()
+
+                    val imagesClick: ArrayList<PublicationModel?> = publicationListImage
+                    var currentP = imagesClick[i]
+
+                    helpers.getListTimeLineUser(context,currentP?.id_users)
+
                 }
             }else{
                 viewFragmentSearch?.findViewById<ProgressBar>(R.id.search_progressbar_load_data)?.visibility = View.GONE
@@ -83,8 +93,8 @@ class SearchFragment(
     private fun filterContact(p0: String?) {
         val repoPublication = PublicationRepository()
         repoPublication.AllDataSearchPublicationImage(p0.toString()){
-            if(searchPublicationListImage.size > 0){
-                adapterImage =  ImagePublicationAdapter(context, searchPublicationListImage)
+            if(publicationListImage.size > 0){
+                adapterImage =  PublicationAdapter(context, publicationListImage)
                 publicationImage?.adapter = adapterImage
                 adapterImage.notifyDataSetChanged()
             }

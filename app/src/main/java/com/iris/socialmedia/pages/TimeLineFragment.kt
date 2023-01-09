@@ -51,7 +51,7 @@ class TimeLineFragment(
         handler.postDelayed(object :Runnable{
             override fun run(){
                 val repoPublication = PublicationRepository()
-                repoPublication.initDataPublication {
+                repoPublication.initDataPublication(null) {
                     if(publicationList.size > 0){
                         timeLineAdapter = TimeLineAdapter(context, publicationList.sortedBy { it.date },R.layout.item_time_line)
                         listTimeLineRecycleView?.adapter = timeLineAdapter
@@ -73,7 +73,7 @@ class TimeLineFragment(
             handler.postDelayed(object :Runnable{
                 override fun run(){
                     val repoPublication = PublicationRepository()
-                    repoPublication.initDataPublication {
+                    repoPublication.initDataPublication(null) {
                         if(publicationList.size > 0){
                             timeLineAdapter =  TimeLineAdapter(context, publicationList.sortedBy { it.date },R.layout.item_time_line)
                             listTimeLineRecycleView?.adapter = timeLineAdapter

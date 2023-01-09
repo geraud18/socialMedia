@@ -42,20 +42,26 @@ class PublicationRepository {
 
       val publicationList = arrayListOf<PublicationModel>()
 
-      var publicationListImage = ArrayList<String?>()
+      var publicationListImage = ArrayList<PublicationModel?>()
       var searchPublicationListImage = ArrayList<String?>()
 
     }
 
-    fun initDataPublication(callback: () -> Unit){
+    fun initDataPublication(id_user: String?,callback: () -> Unit){
         dataBaseReferencePublication.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 publicationList.clear()
                 for(ds in snapshot.children){
                     val publication = ds.getValue(PublicationModel::class.java)
                     if(publication != null){
-                        if(publication.id != ""){
-                            publicationList.add(publication)
+                        if(id_user != null){
+                            if(publication.id != "" && publication.id_users == id_user){
+                                publicationList.add(publication)
+                            }
+                        }else{
+                            if(publication.id != ""){
+                                publicationList.add(publication)
+                            }
                         }
                     }
                 }
@@ -65,7 +71,7 @@ class PublicationRepository {
         })
     }
 
-    fun initDataPublicationImage(id_user:String, callback: () -> Unit){
+    fun initDataPublicationImage(id_user:String?, callback: () -> Unit){
         dataBaseReferencePublication.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val currentuser = firebaseAuth.currentUser
@@ -74,20 +80,25 @@ class PublicationRepository {
                     for(ds in snapshot.children){
                         val publication = ds.getValue(PublicationModel::class.java)
                         if(publication != null){
-                            if (publication.data != "" && publication.id_users == id_user){
-                                publicationListImage.add(publication.data)
+                            if(id_user != null){
+                                if (publication.data != "" && publication.id_users == id_user){
+                                    publicationListImage.add(publication)
+                                }
+                            }else{
+                                if (publication.data != ""){
+                                    publicationListImage.add(publication)
+                                }
                             }
                         }
                     }
                 }
-                publicationListImage.removeAll(listOf("", null))
                 callback()
             }
             override fun onCancelled(error: DatabaseError) {}
         })
     }
 
-    fun AllDataPublicationImage(callback: () -> Unit){
+    fun AllDataSearchPublicationImage(searchValue: String,callback: () -> Unit){
         dataBaseReferencePublication.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 publicationListImage.clear()
@@ -95,33 +106,12 @@ class PublicationRepository {
                         val publication = ds.getValue(PublicationModel::class.java)
                         if(publication != null){
                             if (publication.data != ""){
-                                publicationListImage.add(publication.data)
-                            }
-                        }
-                    }
-                publicationListImage.removeAll(listOf("", null))
-                callback()
-            }
-            override fun onCancelled(error: DatabaseError) {}
-        })
-    }
-
-
-    fun AllDataSearchPublicationImage(searchValue: String,callback: () -> Unit){
-        dataBaseReferencePublication.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                searchPublicationListImage.clear()
-                    for(ds in snapshot.children){
-                        val publication = ds.getValue(PublicationModel::class.java)
-                        if(publication != null){
-                            if (publication.data != ""){
                                 if(publication.title.contains(searchValue, ignoreCase = true) || publication.description.contains(searchValue, ignoreCase = true)  ){
-                                    searchPublicationListImage.add(publication.data)
+                                    publicationListImage.add(publication)
                                 }
                             }
                         }
                     }
-                publicationListImage.removeAll(listOf("", null))
                 callback()
             }
             override fun onCancelled(error: DatabaseError) {}

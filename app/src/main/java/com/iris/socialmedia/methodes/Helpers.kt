@@ -3,21 +3,20 @@ package com.iris.socialmedia.methodes
 import android.app.Activity
 import android.content.Intent
 import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.iris.socialmedia.R
-import com.iris.socialmedia.pages.AccountFragment
-import com.iris.socialmedia.pages.EditAccountFragment
-import com.iris.socialmedia.pages.HomeActivity
-import com.iris.socialmedia.pages.ViewProfileFragment
+import com.iris.socialmedia.pages.*
 import com.iris.socialmedia.repository.UserRepository
 import com.iris.socialmedia.repository.UserRepository.Singleton.userData
 import java.util.*
@@ -110,5 +109,20 @@ class Helpers : AppCompatActivity() {
         }
 
         return galleryImageUrls
+    }
+
+    fun getListTimeLineUser(context: HomeActivity,user_id: String?) {
+
+        val bundle = Bundle()
+        bundle.putString("user_id", user_id)
+
+        val timeLineUserFragment: Fragment = TimeLineUserFragment(context)
+        timeLineUserFragment.arguments = bundle
+        val fragmentManager: FragmentManager = context.supportFragmentManager
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_down, R.anim.slide_up, R.anim.slide_down)
+        fragmentTransaction.replace(R.id.homme_activity, timeLineUserFragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 }

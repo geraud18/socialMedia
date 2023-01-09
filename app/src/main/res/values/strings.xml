@@ -38,6 +38,7 @@
     <string name="account_num_friend">255</string>
     <string name="account_num_post_label">Publication</string>
     <string name="account_num_friend_label">Amis</string>
+    <string name="account_num_friend_label_single">Ami(e)</string>
     <string name="account_btn_modifier_profil">Modifier le profil</string>
     <string name="account_btn_inviter_friend">Inviter</string>
     <string name="account_user_title_page">Profile</string>
@@ -108,6 +109,7 @@
     <string name="time_line_date_hours">Heure(s)</string>
     <string name="time_line_date_minutes">Minute(s)</string>
     <string name="time_line_date_secondes">Seconde(s)</string>
+    <string name="time_line_date_secondes">Retirer des amis</string>
 
     <!-- Contact -->
 

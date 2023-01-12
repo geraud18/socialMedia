@@ -137,6 +137,10 @@ class MessageFragment(
                         messageAdapter.notifyDataSetChanged()
                         messageSendText?.setText("")
                     }
+                  //  messageAdapter = MessageAdapter(context, messageList)
+                    lisMessageRecycleView?.adapter = messageAdapter
+                    messageAdapter.notifyDataSetChanged()
+                   // messageSendText?.setText("")
                 }
             }
         }

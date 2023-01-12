@@ -1,5 +1,6 @@
 package com.iris.socialmedia.pages
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.iris.socialmedia.R
@@ -19,6 +21,7 @@ import com.iris.socialmedia.repository.PublicationRepository
 import com.iris.socialmedia.repository.UserRepository.Singleton.firebaseAuth
 import com.iris.socialmedia.repository.UserRepository.Singleton.id_current_user
 import androidx.appcompat.widget.SearchView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 
 class ContactFragment(
@@ -29,6 +32,7 @@ class ContactFragment(
     private var listContactRecycleView: RecyclerView? = null
     private lateinit var contactAdapter: ContactAdapter
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,6 +70,26 @@ class ContactFragment(
                 return true
             }
         })
+
+        val swipeRefreshLayout = viewFragmentContact?.findViewById<SwipeRefreshLayout>(R.id.refreshLayoutContact)
+        swipeRefreshLayout?.setOnRefreshListener{
+            var handler = Handler()
+            handler.postDelayed(object :Runnable{
+                override fun run(){
+
+                    val repoContact = ContactRepository()
+                    repoContact.contactListUser(id_current_user!!) {
+                        if(contactList.size > 0){
+                            contactList.sortByDescending { it.date }
+                            contactAdapter = ContactAdapter(context, contactList,R.layout.item_contact)
+                            listContactRecycleView?.adapter = contactAdapter
+                            contactAdapter.notifyDataSetChanged()
+                        }
+                    }
+                }
+            },500)
+            swipeRefreshLayout.isRefreshing = false
+        }
 
         return viewFragmentContact
     }

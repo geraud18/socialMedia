@@ -31,12 +31,12 @@ import com.iris.socialmedia.repository.UserRepository.Singleton.firebaseAuth
 
 
 class SearchFragment(
-    private val context: HomeActivity
+    private val context: HomeActivity // lien entre le fragment et l'activite
 ) : Fragment() {
 
-    private var contactSearch: SearchView? = null
-    private var publicationImage: GridView? = null
-    private lateinit var adapterImage: PublicationAdapter
+    private var contactSearch: SearchView? = null // variable qui vas recuperer le champ de recherche
+    private var publicationImage: GridView? = null // variable qui vas recuperer la grille
+    private lateinit var adapterImage: PublicationAdapter // variable qui vas adapter un model a la grille
     val helpers = Helpers()
 
     @SuppressLint("MissingInflatedId")
@@ -45,16 +45,19 @@ class SearchFragment(
         savedInstanceState: Bundle?
     ): View? {
 
-        firebaseAuth = FirebaseAuth.getInstance()
+        firebaseAuth = FirebaseAuth.getInstance() // recupere les l'information de l'utilisateur connecte
 
+        // recuperation du fichier fragment search
         val viewFragmentSearch = inflater.inflate(R.layout.fragment_search, container, false)
 
         viewFragmentSearch?.findViewById<ProgressBar>(R.id.search_progressbar_load_data)?.visibility = View.VISIBLE
 
+        // recuperation du champs de recherche et de la grille
         publicationImage = viewFragmentSearch?.findViewById(R.id.search_publication_list)
         contactSearch = viewFragmentSearch?.findViewById(R.id.search_publication)
 
-        val repoPublication = PublicationRepository()
+        val repoPublication = PublicationRepository() // relation avec la bd
+        // recupere la liste des publications
         repoPublication.initDataPublicationImage(null){
             if(publicationListImage.size > 0){
                 adapterImage = PublicationAdapter(context, publicationListImage)
@@ -63,9 +66,11 @@ class SearchFragment(
                 publicationImage?.visibility = View.VISIBLE
                 publicationImage?.setOnItemClickListener { adapterView, view, i, l ->
 
+                    // on recupere les informations de la publication sur laquel on a clique
                     val imagesClick: ArrayList<PublicationModel?> = publicationListImage
                     var currentP = imagesClick[i]
 
+                    // affiche sur une autre page toutes les publications de l'utilisateur qui a poster cette publication
                     helpers.getListTimeLineUser(context,currentP?.id_users)
 
                 }
@@ -74,6 +79,7 @@ class SearchFragment(
                 publicationImage?.visibility = View.GONE
             }
         }
+
 
         contactSearch?.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(p0: String?): Boolean {
@@ -92,6 +98,7 @@ class SearchFragment(
 
     private fun filterContact(p0: String?) {
         val repoPublication = PublicationRepository()
+        // verifie et affiche les elements correspondant a la recherche si le texte saisir correspond a un titre ou une description de publication
         repoPublication.AllDataSearchPublicationImage(p0.toString()){
             if(publicationListImage.size > 0){
                 adapterImage =  PublicationAdapter(context, publicationListImage)

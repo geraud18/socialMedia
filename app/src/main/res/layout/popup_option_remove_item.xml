@@ -17,12 +17,12 @@
 
 
     <FrameLayout
-        android:id="@+id/progressbar_option"
+        android:id="@+id/progressbar_option_remove"
         android:layout_width="@dimen/default_width_input"
         android:layout_height="@dimen/default_height_input"
         android:visibility="gone"
-        android:background="@drawable/background_btn_update"
-        android:layout_marginTop="10dp"
+        android:background="@drawable/background_btn_remove"
+        android:layout_marginTop="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,15 +52,15 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/more_option_button"
+                android:id="@+id/more_option_button_remove"
                 style="@style/DefaultTextStyle"
                 android:layout_width="@dimen/default_width_input"
                 android:layout_height="@dimen/default_height_input"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/background_btn_update"
+                android:background="@drawable/background_btn_remove"
                 android:textAlignment="center"
                 android:textColorHint="@color/white"
-                android:hint="@string/account_btn_inviter_friend"
+                android:hint="@string/contact_delete_label"
                 android:textSize="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

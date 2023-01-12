@@ -12,6 +12,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
+import com.iris.socialmedia.model.ContactModel
 import com.iris.socialmedia.model.PublicationModel
 import com.iris.socialmedia.model.UserModel
 import com.iris.socialmedia.repository.PublicationRepository.Singleton.dataBaseReferencePublication
@@ -192,4 +193,5 @@ class PublicationRepository {
 
     fun savePublication(publicationModel: PublicationModel) = dataBaseReferencePublication.child(publicationModel.id).setValue(publicationModel)
 
+    fun deletePublication(publicationModel: PublicationModel) = dataBaseReferencePublication.child(publicationModel.id).removeValue()
 }

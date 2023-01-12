@@ -1,98 +1,138 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Flow</string>
-    <string name="app_sub_name">Communiquez ensemble</string>
+    <string name="app_sub_name">Communicate together</string>
+    <string name="app_logout">Disconnect</string>
 
     <!--Login page -->
 
-    <string name="login_email">Email</string>
-    <string name="login_password">Mot de passe</string>
-    <string name="login_forget_password">Mot de passe oublie ?</string>
-    <string name="login_connexion_button">Connexion</string>
-    <string name="login_connexion_google_link"><u>Se connecter avec compte Google</u></string>
-    <string name="login_connecteur_logique">Ou</string>
-    <string name="login_question_compte">Vous n\'avez pas encore de compte ?</string>
-    <string name="login_register_link">Inscrivez-vous</string>
+    <string name="login_email">E-mail</string>
+    <string name="login_password">Password</string>
+    <string name="login_forget_password">Forgot your password ?</string>
+    <string name="login_connexion_button">Login</string>
+    <string name="login_connexion_google_link"><u>Log in with Google account</u></string>
+    <string name="login_connecteur_logique">Or</string>
+    <string name="login_question_compte">Do not have an account yet ?</string>
+    <string name="login_register_link">Sign up</string>
+    <string name="login_check_user_connect_true">online</string>
+    <string name="login_check_user_connect_false">not connected</string>
 
     <!-- Register page -->
 
     <string name="register_email">@string/login_email</string>
     <string name="register_password">@string/login_password</string>
-    <string name="register_username">Nom d\'utilisateur</string>
-    <string name="register_confirm_password">Confirmer mot de passe</string>
-    <string name="register_question_compte">Vous avez deja un compte ?</string>
-    <string name="register_login_link">Se connecter</string>
-    <string name="register_submit_button">Créer le compte</string>
-    <string name="register_email_error">Votre email n\'est pas valide</string>
-    <string name="register_password_error">Votre mot de passe n\'est pas valide</string>
+    <string name="register_username">Username</string>
+    <string name="register_confirm_password">confirm password</string>
+    <string name="register_question_compte">Do you already have an account  ??</string>
+    <string name="register_login_link">Login</string>
+    <string name="register_submit_button">Create account</string>
+    <string name="register_email_error">Your email is invalid</string>
+    <string name="register_password_error">Your password is not valid</string>
     <string name="register_confirm_password_error">@string/register_password_error</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--Account page -->
 
-    <string name="account_username">Nom Prenom</string>
+    <string name="account_username">Last name First Name</string>
     <string name="account_num_post">133</string>
     <string name="account_num_friend">255</string>
     <string name="account_num_post_label">Publication</string>
-    <string name="account_num_friend_label">Amis</string>
-    <string name="account_btn_modifier_profil">Modifier le profil</string>
+    <string name="account_num_friend_label">Friends</string>
+    <string name="account_num_friend_label_single">Friend</string>
+    <string name="account_btn_modifier_profil">Modify the profile</string>
+    <string name="account_btn_inviter_friend">Invite</string>
+    <string name="account_user_title_page">Profile</string>
+    <string name="account_user_invitation">Invitation sent</string>
+    <string name="account_user_invitation_accept">invitation accepted</string>
     <string name="account_post_label">Publication</string>
-    <string name="account_statut_label">Statut</string>
-    <string name="account_notifie_data">Aucune donnee disponible</string>
-
+    <string name="account_statut_label">Status</string>
+    <string name="account_notifie_data">No data available</string>
 
     <!--Edit account page-->
-    <string name="edit_account_statut_man">Monsieur</string>
-    <string name="edit_account_statut_woman">Madame</string>
+    <string name="edit_account_statut_man">Mr</string>
+    <string name="edit_account_statut_woman">Mrs.</string>
     <string-array name="edit_account_statut">
-        <item>Selectioner</item>
+        <item>Select</item>
         <item>@string/edit_account_statut_man</item>
         <item>@string/edit_account_statut_woman</item>
     </string-array>
     <string name="edit_account_title">@string/account_btn_modifier_profil</string>
-    <string name="edit_account_name">Nom</string>
+    <string name="edit_account_name">Name</string>
     <string name="edit_account_statut_label">@string/account_statut_label</string>
-    <string name="edit_account_firstname">Prenom</string>
-    <string name="edit_account_birthday">Date de naissance</string>
+    <string name="edit_account_firstname">First Name</string>
+    <string name="edit_account_birthday">Date of Birth</string>
     <string name="edit_account_bio_information">Information bio</string>
-    <string name="edit_account_link_linkedin">Lien (exemple://linkedin.fr)</string>
-    <string name="edit_account_btn_update">Mettre a jour</string>
+    <string name="edit_account_link_linkedin">Link (exemple://linkedin.fr)</string>
+    <string name="edit_account_btn_update">Update</string>
 
     <!--Language menu-->
 
-    <string name="language_french">Francais</string>
-    <string name="language_english">Anglais</string>
+    <string name="language_french">French</string>
+    <string name="language_english">English</string>
 
     <!--Error message and success -->
 
-    <string name="error_field_required">Champs obligatoire</string>
-    <string name="notifie_forget_password">Un email vous a ete envoyer pour modifier votre mot de passe</string>
+    <string name="error_field_required">Required fields</string>
+    <string name="notifie_forget_password">An email has been sent to you to change your password.</string>
     <string name="error_google_sign">Google sign in failed</string>
-    <string name="error_field_login_incorrect">Email ou mot de passe incorrect</string>
-    <string name="error_field_empty">Tous les champs ne sont pas remplis</string>
-    <string name="error_password">Mot de passe incorrect</string>
-    <string name="notifie_low_password">Mot de passe faible</string>
-    <string name="notifie_strong_password">Mot de passe fort</string>
-    <string name="notifie_success_update_profil">Le profil a ete modifier</string>
-    <string name="notifie_account_update_language">Langue modifier</string>
-    <string name="notifie_account_select_language">Cette langue est deja active</string>
+    <string name="error_field_login_incorrect">Incorrect email or password</string>
+    <string name="error_field_empty">Not all fields are filled in</string>
+    <string name="error_password">Incorrect password</string>
+    <string name="notifie_low_password">weak password</string>
+    <string name="notifie_strong_password">strong password</string>
+    <string name="notifie_success_update_profil">The profile has been modified</string>
+    <string name="notifie_account_update_language">Language change</string>
+    <string name="notifie_account_select_language">This language is already active</string>
     <string name="error_swipe_app">Position not found</string>
-    <string name="notifie_file_empty">Aucune photo n\'a ete prise</string>
-    <string name="notifie_file_save">Fichier Enregister</string>
-    <string name="notifie_publication_field_empty">Le titre ou la description doit etre remplis</string>
-    <string name="notifie_publication_save">Publication reussit</string>
-
+    <string name="notifie_file_empty">No photos were taken</string>
+    <string name="notifie_file_save">File Save</string>
+    <string name="notifie_publication_field_empty">The title or description must be filled in</string>
+    <string name="notifie_publication_save">Publication succeeds</string>
+    <string name="notifie_publication_comment">No value entered</string>
+    <string name="notifie_loading">Please wait</string>
 
 
     <!-- Publication -->
 
-    <string name="publication_title_label">Titre</string>
+    <string name="publication_title_label">Title</string>
     <string name="publication_description_or_legende_label">Legende/Description</string>
-    <string name="publication_btn_update">Publier</string>
+    <string name="publication_btn_update">Publish</string>
 
     <!-- TimeLine -->
 
     <string name="time_line_username">@string/account_username</string>
+    <string name="time_line_data">@string/account_username</string>
+    <string name="time_line_title">Titlee</string>
+    <string name="time_line_description">Description</string>
+    <string name="time_line_time_add">There is</string>
+    <string name="time_line_date_add">Days</string>
+    <string name="time_line_date_hours">Hour(s)</string>
+    <string name="time_line_date_minutes">Minute(s)</string>
+    <string name="time_line_date_secondes">Second(s)</string>
+
+
+    <!-- Contact -->
+
+    <string name="contact_title">My friends</string>
+    <string name="contact_search_label">Start typing...</string>
+    <string name="contact_delete_alert">Do you really want to delete this friend?</string>
+    <string name="contact_delete_confirm">Deletion succeeded</string>
+    <string name="contact_delete_confirm_timeline">Deletion succeeded refresh the page for confirmation</string>
+    <string name="contact_delete_label">Delete</string>
+    <string name="contact_accept_label">Accept</string>
+
+    <!-- Comment publication -->
+
+    <string name="comment_plublication_value">Comments</string>
+    <string name="comment_plublication_username">@string/time_line_username</string>
+    <string name="comment_plublication_label">Enter your comment here</string>
+
+    <!-- Notification -->
+
+    <string name="notification_title_page">Notification</string>
+
+    <!--Message-->
+
+    <string name="message_send_text">Write a message</string>
 
 </resources>

@@ -109,7 +109,7 @@
     <string name="time_line_date_hours">Heure(s)</string>
     <string name="time_line_date_minutes">Minute(s)</string>
     <string name="time_line_date_secondes">Seconde(s)</string>
-    <string name="time_line_date_secondes">Retirer des amis</string>
+   <!-- <string name="time_line_date_secondes">Retirer des amis</string>-->
 
     <!-- Contact -->
 
@@ -117,6 +117,7 @@
     <string name="contact_search_label">Commencer a taper...</string>
     <string name="contact_delete_alert">Voulez vous vraiment supprimmer cet ami(e)</string>
     <string name="contact_delete_confirm">Suppression reussit</string>
+    <string name="contact_delete_confirm_timeline">Suppression réussit actualiser la page pour confirmation</string>
     <string name="contact_delete_label">Supprimmer</string>
     <string name="contact_accept_label">Accepter</string>
 

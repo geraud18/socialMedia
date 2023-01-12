@@ -73,6 +73,26 @@ class ContactRepository {
         })
     }
 
+    fun removecontactListUser(user_id : String,guest_id:String, callback: () -> Unit){
+        dataBaseReferenceContact.addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(ds in snapshot.children){
+                    val contactItem = ds.getValue(ContactModel::class.java)
+                    if(contactItem != null){
+                        if(contactItem.id != ""){
+                            if(contactItem.user_id == user_id && contactItem.decision == "accpeter" && contactItem.guest_id == guest_id){
+                                ds.ref.setValue(null)
+                            }
+                        }
+                    }
+                }
+                callback()
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+
     fun checkInvitationSend(context: HomeActivity, user_id: String, guest_id : String,callback: () -> Unit) {
         dataBaseReferenceContact.addListenerForSingleValueEvent(object :
             ValueEventListener {

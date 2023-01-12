@@ -3,11 +3,11 @@ package com.iris.socialmedia.adapter
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -23,6 +23,9 @@ import com.iris.socialmedia.pages.CommentFragment
 import com.iris.socialmedia.pages.EditAccountFragment
 import com.iris.socialmedia.pages.HomeActivity
 import com.iris.socialmedia.pages.PopupOption
+import com.iris.socialmedia.repository.ContactRepository
+import com.iris.socialmedia.repository.ContactRepository.Singleton.contactData
+import com.iris.socialmedia.repository.ContactRepository.Singleton.etatInvitationSend
 import com.iris.socialmedia.repository.EtatRepository
 import com.iris.socialmedia.repository.EtatRepository.Singleton.countComment
 import com.iris.socialmedia.repository.EtatRepository.Singleton.countFavorite
@@ -202,10 +205,86 @@ class TimeLineAdapter(
                 }
             }
 
+
             holder.timeLineMoreOption.setOnClickListener {
-                val dialog = BottomSheetDialog(context)
-                dialog.setContentView(R.layout.popup_option_item)
-                dialog.show()
+
+                if(currentPublication.id_users == id_current_user){
+
+                    val dialog = BottomSheetDialog(context)
+                    dialog.setContentView(R.layout.popup_option_remove_item)
+                    val buttonDelete = dialog.findViewById<Button>(R.id.more_option_button_remove)
+
+                    buttonDelete?.setOnClickListener {
+                        var progressBar = dialog.findViewById<FrameLayout>(R.id.progressbar_option_remove)
+                        buttonDelete?.visibility = View.INVISIBLE
+                        progressBar?.visibility = View.VISIBLE
+
+                            var handler = Handler()
+                            handler.postDelayed(object :Runnable{
+                                override fun run(){
+                                    repoPublication.deletePublication(currentPublication)
+                                    progressBar?.visibility = View.INVISIBLE
+                                    buttonDelete?.visibility = View.VISIBLE
+                                    Toast.makeText(context,context.getString(R.string.contact_delete_confirm_timeline), Toast.LENGTH_SHORT).show()
+                                }
+                            },1000)
+                    }
+                    dialog.show()
+                }
+                else {
+                    val dialog = BottomSheetDialog(context)
+                    dialog.setContentView(R.layout.popup_option_item)
+                    val button = dialog.findViewById<Button>(R.id.more_option_button)
+                    val repoContact = ContactRepository()
+
+                    repoContact.checkInvitationSend(context,currentPublication.id_users,id_current_user!!){
+                        if(etatInvitationSend != ""){
+                            button?.hint = etatInvitationSend
+                            if(etatInvitationSend != context.getString(R.string.account_num_friend_label_single)){
+                                button?.isEnabled = true
+                            }
+                        }
+                    }
+
+                    button?.setOnClickListener {
+
+                        repoContact.checkInvitationSend(context,currentPublication.id_users,id_current_user!!){
+                            if(etatInvitationSend == ""){
+
+                                var progressBar = dialog.findViewById<FrameLayout>(R.id.progressbar_option)
+                                button?.visibility = View.INVISIBLE
+                                progressBar?.visibility = View.VISIBLE
+
+                                contactData.id = UUID.randomUUID().toString()
+                                contactData.user_id = currentPublication.id_users
+                                contactData.guest_id = id_current_user!!
+                                contactData.decision = "en attentes"
+
+                                val time = Calendar.getInstance().time
+                                val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm")
+                                val currentTime = formatter.format(time)
+                                contactData.date = currentTime
+
+                                var handler = Handler()
+                                handler.postDelayed(object :Runnable{
+                                    override fun run(){
+                                        repoContact.saveContact(contactData)
+                                        button?.hint = context.getString(R.string.account_user_invitation)
+                                        progressBar?.visibility = View.INVISIBLE
+                                        button?.visibility = View.VISIBLE
+                                    }
+                                },1000)
+                            }
+                            else{
+                                if(etatInvitationSend == context.getString(R.string.account_num_friend_label_single)){
+                                    PopupOption(this, currentPublication.id_users).show()
+                                }
+                            }
+                        }
+                    }
+                    dialog.show()
+                }
+
             }
 
             holder.timeLineComment.setOnClickListener {
